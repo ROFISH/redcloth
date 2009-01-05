@@ -151,10 +151,21 @@ rb_str_cat_escaped_for_preformatted(self, str, ts, te)
   rb_str_concat(str, escaped_str);
 }
 
+void
+rb_str_cat_escaped_test(self, str, ts, te)
+  VALUE self, str;
+  char *ts, *te;
+{
+  VALUE source_str = rb_str_new(ts, te-ts);
+  //printf("rb_str_cat_escaped_test '%s' (ts:'%d' te:'%d')\n", RSTRING(source_str)->ptr, *ts, *te);
+  rb_str_concat(str, source_str);
+}
+
 VALUE
 redcloth_inline2(self, str, refs)
   VALUE self, str, refs;
 {
   StringValue(str);
+  //str = redcloth_bbcode2(self, str, rb_hash_new());
   return redcloth_inline(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, refs);
 }

@@ -1,0 +1,200 @@
+---
+name: Bolded Text in BBCode
+in: 'some [b]bolded[/b] text'
+bbcode: '<p>some <strong>bolded</strong> text</p>'
+---
+name: Italic Text in BBCode
+in: 'some [i]italic[/i] text'
+bbcode: '<p>some <em>italic</em> text</p>'
+---
+name: Mixing Textile and BBCode
+in: 'a mix of *Textile* and [b]bbcode[/b]'
+bbcode: '<p>a mix of <strong>Textile</strong> and <strong>bbcode</strong></p>'
+---
+name: Underlined Text
+in: 'some [u]underlined[/u] text'
+bbcode: '<p>some <ins>underlined</ins> text</p>'
+---
+name: Struckthrough Text
+in: 'some [s]struckthrough[/s] text'
+bbcode: '<p>some <del>struckthrough</del> text</p>'
+---
+name: Inserted/Underlined Text
+in: 'some [ins]underlined[/ins] text'
+bbcode: '<p>some <ins>underlined</ins> text</p>'
+---
+name: Deleted/Struckthrough Text
+in: 'some [del]struckthrough[/del] text'
+bbcode: '<p>some <del>struckthrough</del> text</p>'
+---
+name: Inline Preformatted Text
+in: 'some [pre]preformatted[/pre] text'
+bbcode: '<p>some <pre><code>preformatted</code></pre> text</p>'
+---
+name: Preformatted Text Showing Code
+in: |-
+  [pre]class Zomg
+    include AModule
+    
+    def urmom
+      p "is fat"
+    end
+  end[/pre]
+bbcode: |-
+  <pre><code>class Zomg
+    include AModule
+    
+    def urmom
+      p "is fat"
+    end
+  end</code></pre>
+---
+name: Preformatted Text with HTML
+in: |-
+  [pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" <b>some html</b>
+    end
+  end[/pre]
+bbcode: |-
+  <pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre>
+---
+name: Preformatted Text with Explainations Before and After
+in: |-
+  Here's my code!
+  
+  [pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" <b>some html</b>
+    end
+  end[/pre]
+  
+  I made a joke about your mother!
+bbcode: |-
+  <p>Here&#8217;s my code!</p>
+  <pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre>
+  <p>I made a joke about your mother!</p>
+---
+name: Preformatted Text with Explainations Before and After with broken tags
+in: |-
+  Here's my code!
+
+  [pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" <b>some html</b>
+    end
+  end[/pr]
+
+  I made a joke about your mother!
+bbcode: |-
+  <p>Here&#8217;s my code!</p>
+  [pre]classZomg
+  include AModule
+  def urmom
+  p &#8220;is fat&#8221; <b>some html</b>
+  end
+  <p>end[/pr]</p>
+  <p>I made a joke about your mother!</p>
+---
+name: Textile does not render inside a preformatted tag
+in: |-
+  *New Features*
+  
+  * Wikipedia links now work in Textile. [pre]"Wikipedia article about Textile":http://en.wikipedia.org/wiki/Textile_(markup_language)[/pre] now works: "Wikipedia article about Textile":http://en.wikipedia.org/wiki/Textile_(markup_language).
+  * More Stuff
+bbcode: |-
+  <p><strong>New Features</strong></p>
+  <ul>
+  	<li>Wikipedia links now work in Textile. <pre><code>"Wikipedia article about Textile":http://en.wikipedia.org/wiki/Textile_(markup_language)</code></pre> now works: <a href="http://en.wikipedia.org/wiki/Textile_(markup_language)">Wikipedia article about Textile</a>.</li>
+  	<li>More Stuff</li>
+  </ul>
+---
+in: '[quote]test[/quote]'
+bbcode: '<blockquote><p>test</p></blockquote>'
+---
+in: "[quote]test[/quote]\n\nStuff"
+bbcode: "<blockquote><p>test</p></blockquote>\n<p>Stuff</p>"
+---
+in: '[quote]*test*[/quote]'
+bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
+---
+in: '[quote][b]test[/b][/quote]'
+bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
+---
+in: '[quote][b]test[/b][/quot]'
+bbcode: '<p>[quote][b]test[/b][/quot]</p>'
+---
+name: MrAccident's Textile List and BBCode Quote HTML Break
+in: |-
+  * test
+  [quote]
+
+  [/quote]
+bbcode: "<ul>\n\t<li>test<br />\n<blockquote></blockquote></li>\n</ul>"
+---
+name: color tag with a CSS 1.0 approved color name
+in: 'I like red things like [color=red]firetrucks[/color]!'
+bbcode: '<p>I like red things like <span style="color:red;">firetrucks</span>!</p>'
+---
+name: color tag with a #abc color style
+in: 'I like green things like [color=#0f0]shamrocks[/color]!'
+bbcode: '<p>I like green things like <span style="color:#0f0;">shamrocks</span>!</p>'
+---
+name: color tag with a #a1b2c3 color style
+in: 'I like weird things like [color=#a727F0]ur mom[/color]!'
+bbcode: '<p>I like weird things like <span style="color:#a727F0;">ur mom</span>!</p>'
+---
+name: color tag with an unapproved color style
+in: 'I like nonstandard things like [color=mauve]hackers[/color]!'
+bbcode: '<p>I like nonstandard things like [color=mauve]hackers[/color]!</p>'
+---
+name: bbcodesize tag
+in: 'I like big sized things like [size=2]you know what[/size]!'
+bbcode: '<p>I like big sized things like <span style="font-size:2em;">you know what</span>!</p>'
+---
+name: bbcodesize tag
+in: 'I like big sized things like [size=2.0]you know what[/size]!'
+bbcode: '<p>I like big sized things like <span style="font-size:2.0em;">you know what</span>!</p>'
+---
+name: bbcodesize tag
+in: 'I like big sized things like [size=.7]you know what[/size]!'
+bbcode: '<p>I like big sized things like <span style="font-size:.7em;">you know what</span>!</p>'
+---
+name: align tag
+in: '[align=center]I am a centered title![/align]'
+bbcode: '<div style="text-align:center;">I am a centered title!</div>'
+---
+name: align tag with more junk
+in: |-
+  [align=right]I am a righted title![/align]
+  
+  Some other text
+bbcode: |-
+  <div style="text-align:right;">I am a righted title!</div>
+  <p>Some other text</p>
+---
+name: acronym tag
+in: '[acronym=junk inside acronym]I am a centered title![/acronym]'
+bbcode: '<p><acronym title="junk inside acronym">I am a centered title!</acronym></p>'
+---
+name: acronym tag with quotes
+in: '[acronym=junk "inside" acronym]I am a centered title![/acronym]'
+bbcode: '<p><acronym title="junk &quot;inside&quot; acronym">I am a centered title!</acronym></p>'
