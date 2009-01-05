@@ -308,7 +308,7 @@
     list_start      { CLEAR_LIST(); LIST_ITEM(); fgoto list; };
     dl_start        { p = ts; INLINE(html, "dl_open"); ASET("type", "dt"); fgoto dl; };
     table           { INLINE(table, "table_close"); DONE(table); fgoto block; };
-    link_alias      { STORE_LINK_ALIAS(); DONE(block); };
+    link_alias      { UNLESS_DISABLED_INLINE(block,link_alias,STORE_LINK_ALIAS(); DONE(block);) };
     aligned_image   { RESET_TYPE(); fgoto block; };
     redcloth_version { INLINE(html, "redcloth_version"); };
     blank_line => cat;

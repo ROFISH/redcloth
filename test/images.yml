@@ -1,6 +1,7 @@
 ---
 in:  This is an !image.jpg!
 html: <p>This is an <img src="image.jpg" alt="" /></p>
+disable_inline_images: <p>This is an !image.jpg!</p>
 latex: |+
   This is an \begin{figure}[htp]
     \includegraphics[]{image.jpg}
@@ -9,6 +10,7 @@ latex: |+
 ---
 in:  This is an !image.jpg(with alt text)!
 html: <p>This is an <img src="image.jpg" title="with alt text" alt="with alt text" /></p>
+disable_inline_images: <p>This is an !image.jpg(with alt text)!</p>
 latex: |+
   This is an \begin{figure}[htp]
     \includegraphics[]{image.jpg}
@@ -18,6 +20,7 @@ latex: |+
 ---
 in:  This is an !http://example.com/i/image.jpg!
 html: <p>This is an <img src="http://example.com/i/image.jpg" alt="" /></p>
+disable_inline_images: <p>This is an !http://example.com/i/image.jpg!</p>
 # Note that we are removing remote links fro security reasons for now
 latex: |+
   This is an 
@@ -25,15 +28,19 @@ latex: |+
 ---
 in:  This is an !http://example.com/i/image.jpg#a1!
 html: <p>This is an <img src="http://example.com/i/image.jpg#a1" alt="" /></p>
+disable_inline_images: <p>This is an !http://example.com/i/image.jpg#a1!</p>
 ---
 in:  This is an !image.jpg!.
 html: <p>This is an <img src="image.jpg" alt="" />.</p>
+disable_inline_images: <p>This is an !image.jpg!.</p>
 ---
 in:  This is an !image.jpg(with alt text)!.
 html: <p>This is an <img src="image.jpg" title="with alt text" alt="with alt text" />.</p>
+disable_inline_images: <p>This is an !image.jpg(with alt text)!.</p>
 ---
 in:  This is an !http://example.com/i/image.jpg!.
 html: <p>This is an <img src="http://example.com/i/image.jpg" alt="" />.</p>
+disable_inline_images: <p>This is an !http://example.com/i/image.jpg!.</p>
 ---
 in:  This is an !http://example.com/i/image.jpg#a1!.
 html: <p>This is an <img src="http://example.com/i/image.jpg#a1" alt="" />.</p>
@@ -187,6 +194,7 @@ html: <p>(This is an <a href="http://example.com/index.html?foo=bar&amp;a=b#a1">
 ---
 in:  (This is an !http://example.com/i/image.jpg!:http://example.com/index.html?foo=bar&a=b#a10)  This is not.
 html: <p>(This is an <a href="http://example.com/index.html?foo=bar&amp;a=b#a10"><img src="http://example.com/i/image.jpg" alt="" /></a>)  This is not.</p>
+disable_inline_images: <p>(This is an !http://example.com/i/image.jpg!:http://example.com/index.html?foo=bar&amp;a=b#a10)  This is not.</p>
 ---
 name: image with relative src with dot
 in: "!../../image.jpg!"

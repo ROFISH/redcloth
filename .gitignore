@@ -13,3 +13,5 @@ tmp/*
 pkg/*
 .DS_Store
 *.log
+.config
+InstalledFiles

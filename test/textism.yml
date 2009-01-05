@@ -106,21 +106,25 @@ latex: "Nabokov's \\begin{quote}Pnin\\end{quote}\n\n"
 name: del part of word
 in: 'A very [-extra-]ordinary day.'
 html: "<p>A very <del>extra</del>ordinary day.</p>"
+general_disable_inline: "<p>A very [-extra-]ordinary day.</p>"
 latex: "A very \\sout{extra}ordinary day.\n\n"
 ---
 name: del part of word that contains a hyphen
 in: 'An [-extra-extra-]ordinary day.'
 html: <p>An <del>extra-extra</del>ordinary day.</p>
+general_disable_inline: '<p>An [-extra-extra-]ordinary day.</p>'
 latex: "An \\sout{extra-extra}ordinary day.\n\n"
 ---
 name: del a phrase
 in: 'Delete -a phrase- this way.'
 html: <p>Delete <del>a phrase</del> this way.</p>
+general_disable_inline: '<p>Delete -a phrase- this way.</p>'
 latex: "Delete \\sout{a phrase} this way.\n\n"
 ---
 name: del a phrase that contains hyphens
 in: 'Delete -a no-nonsense phrase- this way.'
 html: <p>Delete <del>a no-nonsense phrase</del> this way.</p>
+general_disable_inline: '<p>Delete -a no-nonsense phrase- this way.</p>'
 latex: "Delete \\sout{a no-nonsense phrase} this way.\n\n"
 ---
 in: +a phrase+

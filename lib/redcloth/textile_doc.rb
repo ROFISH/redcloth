@@ -57,6 +57,31 @@ module RedCloth
     # suppressed.
     #
     attr_accessor :no_span_caps
+    
+    #
+    # Accessor for disabling inline elements.
+    #
+    # Depending upon the needs of the application,
+    # some inline elements, such as images, may be
+    # disabled using the array in +:disable_inline+.
+    #
+    #   RedCloth.new( "Images should *not* be allowed! !test_image.jpg!" ).to_html
+    #     #=> "<p>Images should <strong>not</strong> be allowed! <img src=\"test_image.jpg\" alt=\"\" /></p>"
+    #   RedCloth.new( "Images should *not* be allowed! !test_image.jpg!", [:disable_inline=>:image] ).to_html
+    #     #=> "<p>Images should <strong>not</strong> be allowed! !test_image.jpg!</p>"
+    #   RedCloth.new( "Images should *not* be allowed! !test_image.jpg!", [:disable_inline=>[:image,:strong]] ).to_html
+    #     #=> "<p>Images should *not* be allowed! !test_image.jpg!</p>"
+    #
+    attr_accessor :disable_inline
+    
+    #
+    # Insures that disable_inline is an Array
+    #
+    def disable_inline=(disablers)
+      disablers.is_a?(Array) ?
+        @disable_inline = disablers :
+        @disable_inline = [disablers]
+    end
 
     # Returns a new RedCloth object, based on _string_, observing 
     # any _restrictions_ specified.
@@ -67,7 +92,15 @@ module RedCloth
     #     #=>"<h1>A <b>bold</b> man</h1>"
     #
     def initialize( string, restrictions = [] )
-      restrictions.each { |r| method("#{r}=").call( true ) }
+      @disable_inline = []
+      restrictions.each do |r|
+        case r
+          when Hash
+            r.each {|k,v| method("#{k}=").call( v )}
+          else
+            method("#{r}=").call( true )
+        end
+      end
       super( string )
     end
 
