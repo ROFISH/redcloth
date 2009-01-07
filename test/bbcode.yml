@@ -106,13 +106,15 @@ in: |-
   I made a joke about your mother!
 bbcode: |-
   <p>Here&#8217;s my code!</p>
-  [pre]classZomg
-  include AModule
-  def urmom
-  p &#8220;is fat&#8221; <b>some html</b>
-  end
-  <p>end[/pr]</p>
-  <p>I made a joke about your mother!</p>
+  [pre]classZomg<br />
+  include AModule<br />
+  <p><br /><br />
+    def urmom<br /><br />
+      p &quot;is fat&quot; &lt;b&gt;some html&lt;/b&gt;<br /><br />
+    end<br /><br />
+  end[/pr]<br /><br />
+  <br /><br />
+  I made a joke about your mother!</p>
 ---
 name: Textile does not render inside a preformatted tag
 in: |-
@@ -127,18 +129,23 @@ bbcode: |-
   	<li>More Stuff</li>
   </ul>
 ---
+name: quote tag
 in: '[quote]test[/quote]'
 bbcode: '<blockquote><p>test</p></blockquote>'
 ---
+name: quote tag with stuff after it
 in: "[quote]test[/quote]\n\nStuff"
 bbcode: "<blockquote><p>test</p></blockquote>\n<p>Stuff</p>"
 ---
+name: textile inside quotes
 in: '[quote]*test*[/quote]'
 bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
 ---
+name: bbcode inside quotes
 in: '[quote][b]test[/b][/quote]'
 bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
 ---
+name: malformed quote tag
 in: '[quote][b]test[/b][/quot]'
 bbcode: '<p>[quote][b]test[/b][/quot]</p>'
 ---
@@ -149,6 +156,12 @@ in: |-
 
   [/quote]
 bbcode: "<ul>\n\t<li>test<br />\n<blockquote></blockquote></li>\n</ul>"
+---
+in: '[quote title=test][b]test[/b][/quote]'
+bbcode: '<blockquote><cite>test</cite><p><strong>test</strong></p></blockquote>'
+---
+in: '[quote=test][b]test[/b][/quote]'
+bbcode: '<blockquote><cite>test</cite><p><strong>test</strong></p></blockquote>'
 ---
 name: color tag with a CSS 1.0 approved color name
 in: 'I like red things like [color=red]firetrucks[/color]!'
@@ -198,3 +211,82 @@ bbcode: '<p><acronym title="junk inside acronym">I am a centered title!</acronym
 name: acronym tag with quotes
 in: '[acronym=junk "inside" acronym]I am a centered title![/acronym]'
 bbcode: '<p><acronym title="junk &quot;inside&quot; acronym">I am a centered title!</acronym></p>'
+---
+name: url tag with just url
+in: 'Hey guys, [url]http://fangamer.com[/url] is awesome.'
+bbcode: '<p>Hey guys, <a href="http://fangamer.com">http://fangamer.com</a> is awesome.</p>'
+---
+name: url tag with name
+in: 'Hey guys, [url=http://fangamer.com]my blog[/url] is awesome.'
+bbcode: '<p>Hey guys, <a href="http://fangamer.com">my blog</a> is awesome.</p>'
+---
+name: img tag with just img
+in: 'Hey guys, [img]http://fangamer.com/image.jpg[/img] is awesome.'
+bbcode: '<p>Hey guys, <img src="http://fangamer.com/image.jpg" alt="" /> is awesome.</p>'
+---
+name: img tag with name
+in: 'Hey guys, [img=http://fangamer.com/image.jpg]my blog[/img] is awesome.'
+bbcode: '<p>Hey guys, <img src="http://fangamer.com/image.jpg" title="my blog" alt="my blog" /> is awesome.</p>'
+---
+name: spoiler tag
+in: '[spoiler]test[/spoiler]'
+bbcode: "<p><span class=\"spoiler\" style=\"color:#FFF;background:#FFF;\" title=\"Show Spoiler\"><p>test</p></span></p>"
+---
+name: spoiler tag with title
+in: '[spoiler=About Your Mother]She does not sit in the house, she sits AROUND the house![/spoiler]'
+bbcode: "<p><span class=\"spoiler\" style=\"color:#FFF;background:#FFF;\" title=\"About Your Mother\"><p>She does not sit in the house, she sits AROUND the house!</p></span></p>"
+---
+#this line requires the nasty hack because of nested HTML tags inside nested Textile
+name: spoiler tag with pre tag of code
+in: |-
+  [spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/spoiler]
+bbcode: |-
+  <p><span class="spoiler" style="color:#FFF;background:#FFF;" title="Some Ruby Code"><pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre></span></p>
+---
+name: quote tag with spoiler of pre tag of code
+in: |-
+  [quote=dudeddue!][spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/spoiler][/quote]
+bbcode: |-
+  <blockquote><cite>dudeddue!</cite><p><span class="spoiler" style="color:#FFF;background:#FFF;" title="Some Ruby Code"><pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre></span></p></blockquote>
+---
+name: mixed up quote tag with spoiler of pre tag of code
+in: |-
+  [quote=dudeddue!][spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/quote][/spoiler]
+bbcode: |-
+  <blockquote><cite>dudeddue!</cite><p>[spoiler=Some Ruby Code][pre]class Zomg<br /><br /><br />
+    include AModule<br /><br /><br />
+  <br /><br /><br />
+    def urmom<br /><br /><br />
+      p &quot;is lulz&quot; &lt;b&gt;some html&lt;/b&gt;<br /><br /><br />
+    end<br /><br /><br />
+  end[/pre]</p><p></blockquote>[/spoiler]</p>

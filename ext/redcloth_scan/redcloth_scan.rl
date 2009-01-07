@@ -64,6 +64,14 @@
   trows = ( tr (LF >X tr)* ) ;
   tdef = ( "table" >X A C :> dotspace LF ) ;
   table = ( tdef? trows >{CLEAR(table); INLINE(table, "table_open"); RESET_REG();} ) ;
+  
+  bbcode_ignore_start = "[" ("pre"|"quote"|"spoiler");
+  bbcode_ignore_end   = "[/" ("pre"|"quote"|"spoiler") "]";
+  
+  bbcode_ignore := |*
+    bbcode_ignore_end { CAT(block); fgoto block; };
+    default => cat;
+  *|;
 
   # info
   redcloth_version = ("RedCloth" >A ("::" | " " ) "VERSION"i ":"? " ")? %{STORE("prefix");} "RedCloth::VERSION" (LF* EOF | double_return) ;
@@ -228,6 +236,11 @@
       };
     default => cat;
   *|;
+  
+  bb_pre_tag := |*
+    pre_tag_end         { CAT(block); fgoto block; };
+    default => esc_pre;
+  *|;
 
   block := |*
     EOF { 
@@ -242,6 +255,8 @@
         ADD_EXTENDED_BLOCK(); 
       } 
     };
+    #pre_tag_start       { CAT(block); fgoto bb_pre_tag; };
+    bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
     double_return next_block_start { 
       if (IS_NOT_EXTENDED()) { 
         ADD_BLOCK(); 
@@ -292,6 +307,7 @@
   *|;
 
   main := |*
+    #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
     noparagraph_line_start  { ASET("type", "ignored_line"); fgoto noparagraph_line; };
     notextile_tag_start { ASET("type", "notextile"); fgoto notextile_tag; };
     notextile_block_start { ASET("type", "notextile"); fgoto notextile_block; };
@@ -308,7 +324,7 @@
     list_start      { CLEAR_LIST(); LIST_ITEM(); fgoto list; };
     dl_start        { p = ts; INLINE(html, "dl_open"); ASET("type", "dt"); fgoto dl; };
     table           { INLINE(table, "table_close"); DONE(table); fgoto block; };
-    link_alias      { UNLESS_DISABLED_INLINE(block,link_alias,STORE_LINK_ALIAS(); DONE(block);) };
+    #link_alias      { UNLESS_DISABLED_INLINE(block,link_alias,STORE_LINK_ALIAS(); DONE(block);) };
     aligned_image   { RESET_TYPE(); fgoto block; };
     redcloth_version { INLINE(html, "redcloth_version"); };
     blank_line => cat;

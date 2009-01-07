@@ -119,6 +119,9 @@ redcloth_inline(self, p, pe, refs)
   VALUE buf = Qnil;
   VALUE hash = Qnil;
   
+  VALUE html = rb_str_new2("");
+  VALUE failed_start = rb_str_new2("");
+  
   %% write init;
 
   %% write exec;
