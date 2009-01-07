@@ -11,10 +11,6 @@ module RedCloth::Formatters::HTML
     html_esc(text, :html_escape_preformatted)
   end
   
-  def escape_pre_bb(text)
-    text.gsub(/\"/,"&quot;")
-  end
-  
   # escaping for HTML attributes
   def escape_attribute(text)
     html_esc(text, :html_escape_attributes)
@@ -154,18 +150,6 @@ module RedCloth::Formatters::HTML
     img = "<img src=\"#{escape_attribute opts[:src]}\"#{pba(opts)} alt=\"#{escape_attribute opts[:alt].to_s}\" />"  
     img = "<a href=\"#{escape_attribute opts[:href]}\">#{img}</a>" if opts[:href]
     img
-  end
-  
-  def color(opts)
-    "<span style=\"color:#{opts[:color]};\">#{opts[:text]}</span>"
-  end
-  
-  def bbsize(opts)
-    "<span style=\"font-size:#{opts[:size]}#{"em" unless %w(em px pt %).include?(opts[:size][-2..-1])};\">#{opts[:text]}</span>"
-  end
-  
-  def align(opts)
-    "<div style=\"text-align:#{opts[:align]};\">#{opts[:text]}</div>"
   end
   
   def footno(opts)

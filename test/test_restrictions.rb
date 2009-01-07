@@ -46,8 +46,4 @@ class TestRestrictions < Test::Unit::TestCase
     RedCloth.new(doc['in'], [:disable_inline=>[:strong,:del]]).to_html
   end
   
-  generate_formatter_tests('bbcode') do |doc|
-    RedCloth.new(doc['in'], [:bbcode]).to_html
-  end
-  
 end

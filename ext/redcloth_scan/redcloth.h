@@ -18,7 +18,6 @@ extern int SYM_escape_preformatted;
 /* function defs */
 void rb_str_cat_escaped(VALUE self, VALUE str, char *ts, char *te);
 void rb_str_cat_escaped_for_preformatted(VALUE self, VALUE str, char *ts, char *te);
-void rb_str_cat_escaped_test(VALUE self, VALUE str, char *ts, char *te);
 VALUE redcloth_inline(VALUE, char *, char *, VALUE);
 VALUE redcloth_inline2(VALUE, VALUE, VALUE);
 VALUE redcloth_attribute_parser(int, VALUE, char *, char *);
@@ -31,8 +30,6 @@ VALUE red_block(VALUE, VALUE, VALUE, VALUE);
 VALUE red_blockcode(VALUE, VALUE, VALUE);
 VALUE red_pass(VALUE, VALUE, VALUE, ID, VALUE);
 VALUE red_pass_code(VALUE, VALUE, VALUE, ID);
-VALUE redcloth_bbcode(VALUE, char *, char *, VALUE);
-VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
 
 /* parser macros */
 #define UNLESS_DISABLED_INLINE(H, T, F) \

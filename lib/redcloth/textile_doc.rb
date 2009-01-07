@@ -47,16 +47,6 @@ module RedCloth
     #   #=> "And then? She <strong>fell</strong>!"
     #
     attr_accessor :lite_mode
-    
-    # Accessor for toggling BBCode
-    attr_accessor :bbcode
-    
-    def bbcode=(boolean)
-      #link_aliases seriously mess up bbcode, so they MUST be disabled if using BBCode.
-      boolean ? (@disable_inline << :link_alias) : @disable_inline.delete(:link_alias)
-      @no_span_caps = true
-      @bbcode = boolean
-    end
 
     #
     # Accessor for toggling span caps.
