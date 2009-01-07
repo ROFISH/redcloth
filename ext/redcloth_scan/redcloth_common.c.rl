@@ -6,6 +6,7 @@
   action esc { rb_str_cat_escaped(self, block, ts, te); }
   action esc_pre { rb_str_cat_escaped_for_preformatted(self, block, ts, te); }
   action ignore { rb_str_append(block, rb_funcall(self, rb_intern("ignore"), 1, regs)); }
+  action esc_test {rb_str_cat_escaped_test(self, block, ts, te);}
   
   # conditionals
   action starts_line {

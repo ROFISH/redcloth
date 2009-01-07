@@ -7,6 +7,8 @@ ext/redcloth_scan/redcloth.h
 ext/redcloth_scan/redcloth_attributes.c.rl
 ext/redcloth_scan/redcloth_attributes.java.rl
 ext/redcloth_scan/redcloth_attributes.rl
+ext/redcloth_scan/redcloth_bbcode.c.rl
+ext/redcloth_scan/redcloth_bbcode.rl
 ext/redcloth_scan/redcloth_common.c.rl
 ext/redcloth_scan/redcloth_common.java.rl
 ext/redcloth_scan/redcloth_common.rl
