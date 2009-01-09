@@ -26,7 +26,7 @@ redcloth_bbcode(self, p, pe, refs)
   char *ts = NULL, *te = NULL, *reg = NULL, *bck = NULL, *eof = NULL;
   char *orig_p = p, *orig_pe = pe;
   VALUE block = rb_str_new2("");
-  VALUE regs = Qnil;
+  VALUE regs = Qnil; CLEAR_REGS()
   unsigned int opts = 0;
   VALUE buf = Qnil;
   VALUE hash = Qnil;
@@ -38,8 +38,16 @@ redcloth_bbcode(self, p, pe, refs)
   %% write init;
 
   %% write exec;
+  
+  if (RSTRING_LEN(block) > 0)
+  {
+    rb_hash_aset(regs, ID2SYM(rb_intern("text")), block);
+    rb_str_append(html, rb_funcall(self, rb_intern("p"), 1, regs));
+    CLEAR(block); 
+    CLEAR_REGS()
+  }
 
-  return block;
+  return rb_funcall(html, rb_intern("strip"), 0);
 }
 
 VALUE

@@ -6,7 +6,7 @@
 %%{
 
   machine redcloth_inline;
-  include redcloth_bbcode "redcloth_bbcode.rl";
+  include redcloth_bbcode_inline "redcloth_bbcode_inline.rl";
 
   # links
   mtext_noquotes = mtext -- '"' ;

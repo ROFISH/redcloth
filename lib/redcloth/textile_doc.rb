@@ -57,6 +57,9 @@ module RedCloth
       @no_span_caps = true
       @bbcode = boolean
     end
+    
+    # Accessor for toggling BBCode only
+    attr_accessor :bbcode_only
 
     #
     # Accessor for toggling span caps.

@@ -3,6 +3,7 @@ name: Bolded Text in BBCode
 in: 'some [b]bolded[/b] text'
 bbcode: '<p>some <strong>bolded</strong> text</p>'
 html: '<p>some [b]bolded[/b] text</p>'
+bbcode_only: "<p>some <strong>bolded</strong> text</p>"
 ---
 name: Italic Text in BBCode
 in: 'some [i]italic[/i] text'

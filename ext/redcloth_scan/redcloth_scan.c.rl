@@ -210,7 +210,9 @@ redcloth_to(self, formatter)
   rb_funcall(self, rb_intern("delete!"), 1, rb_str_new2("\r"));
   VALUE working_copy = rb_obj_clone(self);
   rb_extend_object(working_copy, formatter);
-  if (rb_funcall(working_copy, rb_intern("lite_mode"), 0) == Qtrue) {
+  if (rb_funcall(working_copy, rb_intern("bbcode_only"), 0) == Qtrue) {
+    return redcloth_bbcode2(working_copy, self, rb_hash_new());
+  } if (rb_funcall(working_copy, rb_intern("lite_mode"), 0) == Qtrue) {
     return redcloth_inline2(working_copy, self, rb_hash_new());
   } else {
     return redcloth_transform2(working_copy, self);
