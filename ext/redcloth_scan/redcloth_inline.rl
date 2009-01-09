@@ -52,8 +52,6 @@
   ignore = "["? "==" >X %A mtext %T :> "==" "]"? ;
   snip = "["? "```" >X %A mtext %T :> "```" "]"? ;
   
-  #bbcode_ignore_start = "[" >X ("pre"|"quote"|"spoiler");
-  #bbcode_ignore_end   = "[/" ("pre"|"quote"|"spoiler") "]";
   bbcode_tag = "[";
   
   # quotes
@@ -100,18 +98,8 @@
     code_tag_end { CAT(block); fgoto main; };
     default => esc_pre;
   *|;
-  
-  #bbcode_ignore := |*
-  #  bbcode_ignore_end { CAT(block); fgoto main; };
-  #  default => cat;
-  #*|;
-  
-
 
   main := |*
-  
-    #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
-    
     image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
     
     link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("link_text"); PASS(block, "name", "link");) };

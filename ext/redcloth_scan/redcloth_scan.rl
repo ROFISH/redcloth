@@ -68,16 +68,8 @@
   tdef = ( "table" >X A C :> dotspace LF ) ;
   table = ( tdef? trows >{CLEAR(table); INLINE(table, "table_open"); RESET_REG();} ) ;
   
-  bbcode_ignore_start = "[" ("pre"|"quote"|"spoiler");
-  bbcode_ignore_end   = "[/" ("pre"|"quote"|"spoiler") "]";
-  
   bbchars = (default - space - "]" - "[")+ ;
   bbmtext = ( bbchars (mspace bbchars)* ) ;
-  
-  bbcode_ignore := |*
-    bbcode_ignore_end { CAT(block); fgoto block; };
-    default => cat;
-  *|;
   
   bb_pre_tag_start = "[pre" [^\]]* "]" (space* "[code]")? ;
   bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
@@ -306,8 +298,6 @@
         ADD_EXTENDED_BLOCK(); 
       } 
     };
-    #pre_tag_start       { CAT(block); fgoto bb_pre_tag; };
-    #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
     double_return next_block_start { 
       if (IS_NOT_EXTENDED()) { 
         ADD_BLOCK(); 
@@ -358,7 +348,6 @@
   *|;
 
   main := |*
-    #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
     bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_pre_tag; };
     bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_quote_tag; };
     bb_spoiler_tag_start { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_spoiler_tag; };

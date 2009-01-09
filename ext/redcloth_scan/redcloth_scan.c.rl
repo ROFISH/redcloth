@@ -73,9 +73,7 @@ redcloth_transform2(self, str)
   VALUE self, str;
 {
   StringValue(str);
-  //str = redcloth_bbcode2(self, str, rb_hash_new());
   rb_funcall(self, rb_intern("before_transform"), 1, str);
-  //str = redcloth_transform(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, Qnil); 
   return redcloth_transform(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, Qnil); 
 }
 
@@ -212,13 +210,6 @@ redcloth_to(self, formatter)
   rb_funcall(self, rb_intern("delete!"), 1, rb_str_new2("\r"));
   VALUE working_copy = rb_obj_clone(self);
   rb_extend_object(working_copy, formatter);
-  /*if (rb_funcall(working_copy, rb_intern("bbcode"), 0) == Qtrue) {
-    VALUE omg = redcloth_bbcode2(working_copy, self, rb_hash_new());
-    //printf("%s",RSTRING(omg)->ptr);
-    return redcloth_transform2(working_copy, omg);
-    //return redcloth_bbcode2(working_copy, self, rb_hash_new());
-    //printf("%s",RSTRING(self)->ptr);
-  }*/
   if (rb_funcall(working_copy, rb_intern("lite_mode"), 0) == Qtrue) {
     return redcloth_inline2(working_copy, self, rb_hash_new());
   } else {
