@@ -22,8 +22,6 @@ module RedCloth::Formatters::HTML
   
   def after_transform(text)
     text.chomp!
-    #TODO Fix nasty hack that requires this, see bbcode.yml
-    #text.gsub!(/\&(amp;)+([gl])t\;/,'&\2t;')
   end
     
   [:h1, :h2, :h3, :h4, :h5, :h6, :p, :pre, :div].each do |m|
@@ -182,7 +180,7 @@ module RedCloth::Formatters::HTML
     #quote = "<blockquote>"
     #quote += "<cite>#{opts[:cite]}</cite>" if opts[:cite]
     #quote += opts[:text]+"</blockquote>\n"
-    "<pre><code>#{opts[:text]}</code></pre>\n"
+    "#{bb_pre(opts)}\n"
   end
   
   def bbspoiler(opts)
@@ -193,8 +191,8 @@ module RedCloth::Formatters::HTML
     "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">#{opts[:title] || "Show Spoiler"}</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\">#{opts[:text]}</div></div></div>"
   end
   
-  def bbpre(opts)
-    "<pre#{pba(opts)}><code>#{opts[:text]}</code></pre>\n"
+  def bb_pre(opts)
+    "<pre><code>#{opts[:text]}</code></pre>"
   end
   
   def footno(opts)

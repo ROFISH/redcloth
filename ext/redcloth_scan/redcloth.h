@@ -35,6 +35,7 @@ VALUE redcloth_bbcode(VALUE, char *, char *, VALUE);
 VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
 
 /* parser macros */
+#define CALL_STACK_SIZE 20
 #define UNLESS_DISABLED_INLINE(H, T, F) \
   if (rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { rb_str_cat_escaped(self, H, ts, te); } \
   else { F }
@@ -96,6 +97,7 @@ VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
   } else { \
     rb_hash_aset(regs, ID2SYM(rb_intern(T)), Qnil); \
   }
+#define BBCODE_ENABLED() rb_funcall(self, rb_intern("bbcode"), 0) == Qtrue
 #define STORE_URL(T) \
   if (p > reg && reg >= ts) { \
     char punct = 1; \
@@ -181,5 +183,6 @@ VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
         rb_str_append(html, rb_funcall(self, rb_intern(listm), 1, regs)); \
       } \
     }
+    
 
 #endif

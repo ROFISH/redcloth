@@ -2,14 +2,17 @@
 name: Bolded Text in BBCode
 in: 'some [b]bolded[/b] text'
 bbcode: '<p>some <strong>bolded</strong> text</p>'
+html: '<p>some [b]bolded[/b] text</p>'
 ---
 name: Italic Text in BBCode
 in: 'some [i]italic[/i] text'
 bbcode: '<p>some <em>italic</em> text</p>'
+html: '<p>some [i]italic[/i] text</p>'
 ---
 name: Mixing Textile and BBCode
 in: 'a mix of *Textile* and [b]bbcode[/b]'
 bbcode: '<p>a mix of <strong>Textile</strong> and <strong>bbcode</strong></p>'
+html: '<p>a mix of <strong>Textile</strong> and [b]bbcode[/b]</p>'
 ---
 name: Underlined Text
 in: 'some [u]underlined[/u] text'
@@ -239,7 +242,6 @@ name: spoiler tag with title
 in: '[spoiler=About Your Mother]She does not sit in the house, she sits AROUND the house![/spoiler]'
 bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">About Your Mother</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>She does not sit in the house, she sits AROUND the house!</p></div></div></div>"
 ---
-#this line requires the nasty hack because of nested HTML tags inside nested Textile
 name: spoiler tag with pre tag of code
 in: |-
   [spoiler=Some Ruby Code][pre]class Zomg
