@@ -175,11 +175,22 @@ module RedCloth::Formatters::HTML
   def bbquote(opts)
     quote = "<blockquote>"
     quote += "<cite>#{opts[:cite]}</cite>" if opts[:cite]
-    quote += opts[:text]+"</blockquote>"
+    quote += "#{opts[:text]}</blockquote>\n"
+  end
+  
+  def bb_block_pre(opts)
+    #quote = "<blockquote>"
+    #quote += "<cite>#{opts[:cite]}</cite>" if opts[:cite]
+    #quote += opts[:text]+"</blockquote>\n"
+    "<pre><code>#{opts[:text]}</code></pre>\n"
   end
   
   def bbspoiler(opts)
     "<span class=\"spoiler\" style=\"color:#FFF;background:#FFF;\" title=\"#{opts[:title] || "Show Spoiler"}\">#{opts[:text]}</span>"
+  end
+  
+  def bb_block_spoiler(opts)
+    "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">#{opts[:title] || "Show Spoiler"}</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\">#{opts[:text]}</div></div></div>"
   end
   
   def bbpre(opts)

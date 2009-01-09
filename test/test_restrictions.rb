@@ -47,7 +47,7 @@ class TestRestrictions < Test::Unit::TestCase
   end
   
   generate_formatter_tests('bbcode') do |doc|
-    RedCloth.new(doc['in'], [:bbcode]).to_html
+    RedCloth.new(doc['in'], [:bbcode,:filter_html]).to_html
   end
   
 end

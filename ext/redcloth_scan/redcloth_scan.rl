@@ -6,6 +6,9 @@
 %%{
 
   machine redcloth_scan;
+  
+  action bb_cat2html { CAT(html); }
+  action bb_failed4html { rb_str_append(block,failed_start); rb_str_append(block,rb_funcall(self, rb_intern("escape"), 1, html)); fgoto main; }
 
   # blocks
   notextile_tag_start = "<notextile>" ;
@@ -68,10 +71,24 @@
   bbcode_ignore_start = "[" ("pre"|"quote"|"spoiler");
   bbcode_ignore_end   = "[/" ("pre"|"quote"|"spoiler") "]";
   
+  bbchars = (default - space - "]" - "[")+ ;
+  bbmtext = ( bbchars (mspace bbchars)* ) ;
+  
   bbcode_ignore := |*
     bbcode_ignore_end { CAT(block); fgoto block; };
     default => cat;
   *|;
+  
+  bb_pre_tag_start = "[pre" [^\]]* "]" (space* "[code]")? ;
+  bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
+  
+  bb_quote_title = " title"? "=" bbmtext %{ STORE("cite"); } >A;
+  bb_quote_tag_start = ("[quote" bb_quote_title? "]") ;
+  bb_quote_tag_end =  "[/quote]" LF? ;
+  
+  bb_spoiler_title = " title"? "=" bbmtext %{ STORE("title"); } >A;
+  bb_spoiler_tag_start = ("[spoiler" bb_spoiler_title? "]") ;
+  bb_spoiler_tag_end =  "[/spoiler]" LF? ;
 
   # info
   redcloth_version = ("RedCloth" >A ("::" | " " ) "VERSION"i ":"? " ")? %{STORE("prefix");} "RedCloth::VERSION" (LF* EOF | double_return) ;
@@ -238,8 +255,42 @@
   *|;
   
   bb_pre_tag := |*
-    pre_tag_end         { CAT(block); fgoto block; };
-    default => esc_pre;
+    bb_pre_tag_end {
+      rb_hash_aset(regs, ID2SYM(rb_intern("text")), rb_funcall(self, rb_intern("escape_pre"), 1, block));
+      rb_str_append(html,rb_funcall(self, rb_intern("bb_block_pre"), 1, regs));
+      extend = Qnil;
+      CLEAR(block);
+      CLEAR_REGS();
+      fgoto main;
+    };
+    default => cat;
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+  *|;
+  
+  bb_quote_tag := |*
+    bb_quote_tag_end {
+      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
+      rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+      extend = Qnil;
+      CLEAR(block);
+      CLEAR_REGS();
+      fgoto main;
+    };
+    default => cat;
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+  *|;
+  
+  bb_spoiler_tag := |*
+    bb_spoiler_tag_end {
+      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
+      rb_str_append(html,rb_funcall(self, rb_intern("bb_block_spoiler"), 1, regs));
+      extend = Qnil;
+      CLEAR(block);
+      CLEAR_REGS();
+      fgoto main;
+    };
+    default => cat;
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
 
   block := |*
@@ -256,7 +307,7 @@
       } 
     };
     #pre_tag_start       { CAT(block); fgoto bb_pre_tag; };
-    bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
+    #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
     double_return next_block_start { 
       if (IS_NOT_EXTENDED()) { 
         ADD_BLOCK(); 
@@ -308,6 +359,10 @@
 
   main := |*
     #bbcode_ignore_start => { CAT(block); fgoto bbcode_ignore; };
+    bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_pre_tag; };
+    bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_quote_tag; };
+    bb_spoiler_tag_start { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_spoiler_tag; };
+    
     noparagraph_line_start  { ASET("type", "ignored_line"); fgoto noparagraph_line; };
     notextile_tag_start { ASET("type", "notextile"); fgoto notextile_tag; };
     notextile_block_start { ASET("type", "notextile"); fgoto notextile_block; };
