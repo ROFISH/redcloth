@@ -523,19 +523,19 @@ in: I searched "Google":http://google.com.
 html: <p>I searched <a href="http://google.com">Google</a>.</p>
 lite_mode_html: I searched <a href="http://google.com">Google</a>.
 --- 
-name: link aliases
-desc: If you are using the same link several times in your document, or you’d just like to be a tad more organized, you can use a link alias.  Place the URL anywhere in your document, beginning with its alias in square brackets.  Then, use the alias in place of the URL, using the link format above.
-in: |-
-  I am crazy about "Hobix":hobix
-  and "it's":hobix "all":hobix I ever
-  "link to":hobix!
-  
-  [hobix]http://hobix.com
-html: |-
-  <p>I am crazy about <a href="http://hobix.com">Hobix</a><br />
-  and <a href="http://hobix.com">it&#8217;s</a> <a href="http://hobix.com">all</a> I ever<br />
-  <a href="http://hobix.com">link to</a>!</p>
---- 
+#name: link aliases
+#desc: If you are using the same link several times in your document, or you’d just like to be a tad more organized, you can use a link alias.  Place the URL anywhere in your document, beginning with its alias in square brackets.  Then, use the alias in place of the URL, using the link format above.
+#in: |-
+#  I am crazy about "Hobix":hobix
+#  and "it's":hobix "all":hobix I ever
+#  "link to":hobix!
+#  
+#  [hobix]http://hobix.com
+#html: |-
+#  <p>I am crazy about <a href="http://hobix.com">Hobix</a><br />
+#  and <a href="http://hobix.com">it&#8217;s</a> <a href="http://hobix.com">all</a> I ever<br />
+#  <a href="http://hobix.com">link to</a>!</p>
+#--- 
 name: image
 desc: You can embed an image in your Textile document by surrounding its URL with exclamation marks.
 in: "!http://hobix.com/sample.jpg!"

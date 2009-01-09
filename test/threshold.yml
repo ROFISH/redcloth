@@ -165,17 +165,17 @@ name: link title
 desc: A title may be placed in () parentheses.
 in: '"link text(with title)":http://example.com/'
 html: <p><a href="http://example.com/" title="with title">link text</a></p>
----
-name: link alias
-desc: For frequent linking to a single URL, you can specify a link alias with [] square brackets.
-in: |-
-  Here's "a link":tstate, and
-  "another link":tstate to the same site.
-  
-  [tstate]http://thresholdstate.com/
-html: |-
-  <p>Here&#8217;s <a href="http://thresholdstate.com/">a link</a>, and<br />
-  <a href="http://thresholdstate.com/">another link</a> to the same site.</p>
+#---
+#name: link alias
+#desc: For frequent linking to a single URL, you can specify a link alias with [] square brackets.
+#in: |-
+#  Here's "a link":tstate, and
+#  "another link":tstate to the same site.
+#  
+#  [tstate]http://thresholdstate.com/
+#html: |-
+#  <p>Here&#8217;s <a href="http://thresholdstate.com/">a link</a>, and<br />
+#  <a href="http://thresholdstate.com/">another link</a> to the same site.</p>
 ---
 name: image
 desc: Use ! exclamation marks to insert an image tag.

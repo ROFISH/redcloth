@@ -48,6 +48,9 @@ redcloth_transform(self, p, pe, refs)
   char listm[10] = "";
   VALUE refs_found = rb_hash_new();
   
+  VALUE failed_start = rb_str_new2("");
+  char *failed_start_point_p = NULL, *failed_start_point_ts = NULL, *failed_start_point_te = NULL;
+  
   %% write init;
 
   %% write exec;
@@ -70,9 +73,10 @@ redcloth_transform2(self, str)
   VALUE self, str;
 {
   StringValue(str);
-  str = redcloth_bbcode2(self, str, rb_hash_new());
+  //str = redcloth_bbcode2(self, str, rb_hash_new());
   rb_funcall(self, rb_intern("before_transform"), 1, str);
-  return redcloth_transform(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, Qnil);
+  //str = redcloth_transform(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, Qnil); 
+  return redcloth_transform(self, RSTRING_PTR(str), RSTRING_PTR(str) + RSTRING_LEN(str) + 1, Qnil); 
 }
 
 /*

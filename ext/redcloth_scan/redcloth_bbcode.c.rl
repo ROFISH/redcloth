@@ -32,7 +32,7 @@ redcloth_bbcode(self, p, pe, refs)
   VALUE hash = Qnil;
   
   VALUE html = rb_str_new2("");
-  VALUE temp = rb_str_new2("");
+  VALUE failed_start = rb_str_new2("");
   
   %% write init;
 

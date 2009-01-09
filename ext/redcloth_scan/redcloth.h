@@ -46,6 +46,7 @@ VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
 #define RESET_TYPE(T)  rb_hash_aset(regs, ID2SYM(rb_intern("type")), plain_block)
 #define INLINE(H, T)   rb_str_append(H, rb_funcall(self, rb_intern(T), 1, regs))
 #define DONE(H)        rb_str_append(html, H); CLEAR(H); CLEAR_REGS()
+#define BBDONE()       failed_start = rb_str_new2(""); html = rb_str_new2(""); CLEAR_REGS(); RESET_REG();
 #define PASS(H, A, T)  rb_str_append(H, red_pass(self, regs, ID2SYM(rb_intern(A)), rb_intern(T), refs))
 #define PARSE_ATTR(A)  red_parse_attr(self, regs, ID2SYM(rb_intern(A)))
 #define PARSE_LINK_ATTR(A)  red_parse_link_attr(self, regs, ID2SYM(rb_intern(A)))

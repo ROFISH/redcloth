@@ -106,10 +106,10 @@ in: |-
   I made a joke about your mother!
 bbcode: |-
   <p>Here&#8217;s my code!</p>
-  [pre]classZomg
-  include AModule
+  <p>[pre]class Zomg<br />
+    include AModule</p>
   def urmom
-  p &#8220;is fat&#8221; <b>some html</b>
+  p &#8220;is fat&#8221; &lt;b&gt;some html&lt;/b&gt;
   end
   <p>end[/pr]</p>
   <p>I made a joke about your mother!</p>
@@ -127,20 +127,25 @@ bbcode: |-
   	<li>More Stuff</li>
   </ul>
 ---
+name: quote tag
 in: '[quote]test[/quote]'
 bbcode: '<blockquote><p>test</p></blockquote>'
 ---
+name: quote tag with stuff after it
 in: "[quote]test[/quote]\n\nStuff"
 bbcode: "<blockquote><p>test</p></blockquote>\n<p>Stuff</p>"
 ---
+name: textile inside quotes
 in: '[quote]*test*[/quote]'
 bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
 ---
+name: bbcode inside quotes
 in: '[quote][b]test[/b][/quote]'
 bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
 ---
+name: malformed quote tag
 in: '[quote][b]test[/b][/quot]'
-bbcode: '<p>[quote][b]test[/b][/quot]</p>'
+bbcode: '<p>[quote]<strong>test</strong>[/quot]</p>'
 ---
 name: MrAccident's Textile List and BBCode Quote HTML Break
 in: |-
@@ -148,7 +153,18 @@ in: |-
   [quote]
 
   [/quote]
-bbcode: "<ul>\n\t<li>test<br />\n<blockquote></blockquote></li>\n</ul>"
+bbcode: |-
+  <ul>
+  	<li>test<br />
+  [quote]</li>
+  </ul>
+  <p>[/quote]</p>
+---
+in: '[quote title=test][b]test[/b][/quote]'
+bbcode: '<blockquote><cite>test</cite><p><strong>test</strong></p></blockquote>'
+---
+in: '[quote=test][b]test[/b][/quote]'
+bbcode: '<blockquote><cite>test</cite><p><strong>test</strong></p></blockquote>'
 ---
 name: color tag with a CSS 1.0 approved color name
 in: 'I like red things like [color=red]firetrucks[/color]!'
@@ -180,7 +196,7 @@ bbcode: '<p>I like big sized things like <span style="font-size:.7em;">you know 
 ---
 name: align tag
 in: '[align=center]I am a centered title![/align]'
-bbcode: '<div style="text-align:center;">I am a centered title!</div>'
+bbcode: '<p><div style="text-align:center;">I am a centered title!</div></p>'
 ---
 name: align tag with more junk
 in: |-
@@ -188,7 +204,7 @@ in: |-
   
   Some other text
 bbcode: |-
-  <div style="text-align:right;">I am a righted title!</div>
+  <p><div style="text-align:right;">I am a righted title!</div></p>
   <p>Some other text</p>
 ---
 name: acronym tag
@@ -198,3 +214,82 @@ bbcode: '<p><acronym title="junk inside acronym">I am a centered title!</acronym
 name: acronym tag with quotes
 in: '[acronym=junk "inside" acronym]I am a centered title![/acronym]'
 bbcode: '<p><acronym title="junk &quot;inside&quot; acronym">I am a centered title!</acronym></p>'
+---
+name: url tag with just url
+in: 'Hey guys, [url]http://fangamer.com[/url] is awesome.'
+bbcode: '<p>Hey guys, <a href="http://fangamer.com">http://fangamer.com</a> is awesome.</p>'
+---
+name: url tag with name
+in: 'Hey guys, [url=http://fangamer.com]my blog[/url] is awesome.'
+bbcode: '<p>Hey guys, <a href="http://fangamer.com">my blog</a> is awesome.</p>'
+---
+name: img tag with just img
+in: 'Hey guys, [img]http://fangamer.com/image.jpg[/img] is awesome.'
+bbcode: '<p>Hey guys, <img src="http://fangamer.com/image.jpg" alt="" /> is awesome.</p>'
+---
+name: img tag with name
+in: 'Hey guys, [img=http://fangamer.com/image.jpg]my blog[/img] is awesome.'
+bbcode: '<p>Hey guys, <img src="http://fangamer.com/image.jpg" title="my blog" alt="my blog" /> is awesome.</p>'
+---
+name: spoiler tag
+in: '[spoiler]test[/spoiler]'
+bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>test</p></div></div></div>"
+---
+name: spoiler tag with title
+in: '[spoiler=About Your Mother]She does not sit in the house, she sits AROUND the house![/spoiler]'
+bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">About Your Mother</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>She does not sit in the house, she sits AROUND the house!</p></div></div></div>"
+---
+#this line requires the nasty hack because of nested HTML tags inside nested Textile
+name: spoiler tag with pre tag of code
+in: |-
+  [spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/spoiler]
+bbcode: |-
+  <div class="spoiler_container"><div class="spoileroncontainer"><button type="button" class="button spoileron" title="Click to show the spoiler.">Some Ruby Code</button></div><div class="spoiler"><div class="spoileroffcontainer"><button type="button" class="button spoileroff" title="Click to hide the spoiler.">hide spoiler</button><br/></div><div class="spoilertext"><pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre></div></div></div>
+---
+name: quote tag with spoiler of pre tag of code
+in: |-
+  [quote=dudeddue!][spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/spoiler][/quote]
+bbcode: |-
+  <blockquote><cite>dudeddue!</cite><div class="spoiler_container"><div class="spoileroncontainer"><button type="button" class="button spoileron" title="Click to show the spoiler.">Some Ruby Code</button></div><div class="spoiler"><div class="spoileroffcontainer"><button type="button" class="button spoileroff" title="Click to hide the spoiler.">hide spoiler</button><br/></div><div class="spoilertext"><pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre></div></div></div></blockquote>
+---
+name: mixed up quote tag with spoiler of pre tag of code
+in: |-
+  [quote=dudeddue!][spoiler=Some Ruby Code][pre]class Zomg
+    include AModule
+
+    def urmom
+      p "is lulz" <b>some html</b>
+    end
+  end[/pre][/quote][/spoiler]
+bbcode: |-
+  <blockquote><cite>dudeddue!</cite><p>[spoiler=Some Ruby Code][pre]class Zomg<br />
+    include AModule</p>
+  def urmom
+  p &#8220;is lulz&#8221; &lt;b&gt;some html&lt;/b&gt;
+  end
+  <p>end[/pre]</p></blockquote>
+  <p>[/spoiler]</p>
