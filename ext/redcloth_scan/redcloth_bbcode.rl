@@ -36,6 +36,8 @@
   bb_pre_tag_start = "[pre" [^\]]* "]" (space* "[code]")? ;
   bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
   
+  bb_spoiler = "[spoiler]" >X mtext >A %T :> "[/spoiler]" ;
+  
   action bb_cat2html { CAT(html); }
   action bb_failed4html { rb_str_append(block,failed_start); rb_str_append(block,rb_funcall(self, rb_intern("escape"), 1, html)); fgoto bbcode_inline; }
   
@@ -68,6 +70,7 @@
     bb_link2   { PASS(block, "name", "link"); };
     bb_img     { PASS(block, "name", "image"); };
     bb_img2    { PASS(block, "name", "image"); };
+    bb_spoiler { PASS(block, "name", "bb_spoiler"); };
     
     bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_pre_tag; };
     default => { CAT(block); fret;};

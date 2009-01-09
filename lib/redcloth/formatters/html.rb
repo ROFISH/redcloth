@@ -183,8 +183,8 @@ module RedCloth::Formatters::HTML
     "#{bb_pre(opts)}\n"
   end
   
-  def bbspoiler(opts)
-    "<span class=\"spoiler\" style=\"color:#FFF;background:#FFF;\" title=\"#{opts[:title] || "Show Spoiler"}\">#{opts[:text]}</span>"
+  def bb_spoiler(opts)
+    "<span class=\"inline_spoiler\" style=\"color:#333;background-color:#333;\">#{opts[:text]}</span>"
   end
   
   def bb_block_spoiler(opts)

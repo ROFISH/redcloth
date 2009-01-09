@@ -295,3 +295,7 @@ bbcode: |-
   end
   <p>end[/pre]</p></blockquote>
   <p>[/spoiler]</p>
+---
+name: inline spoilers
+in: "Remember, during the fight with the [spoiler]Masked Man[/spoiler] you do a few things!"
+bbcode: "<p>Remember, during the fight with the <span class=\"inline_spoiler\" style=\"color:#333;background-color:#333;\">Masked Man</span> you do a few things!</p>"
