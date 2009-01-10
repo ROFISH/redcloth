@@ -5,6 +5,12 @@ bbcode: '<p>some <strong>bolded</strong> text</p>'
 html: '<p>some [b]bolded[/b] text</p>'
 bbcode_only: "<p>some <strong>bolded</strong> text</p>"
 ---
+name: More Bolded Text in BBCode
+in: '[b]bolded[/b]'
+bbcode: '<p><strong>bolded</strong></p>'
+html: '<p>[b]bolded[/b]</p>'
+bbcode_only: "<p><strong>bolded</strong></p>"
+---
 name: Italic Text in BBCode
 in: 'some [i]italic[/i] text'
 bbcode: '<p>some <em>italic</em> text</p>'
@@ -34,6 +40,7 @@ bbcode: '<p>some <del>struckthrough</del> text</p>'
 name: Inline Preformatted Text
 in: 'some [pre]preformatted[/pre] text'
 bbcode: '<p>some <pre><code>preformatted</code></pre> text</p>'
+bbcode_only: '<p>some <pre><code>preformatted</code></pre> text</p>'
 ---
 name: Preformatted Text Showing Code
 in: |-
@@ -45,6 +52,14 @@ in: |-
     end
   end[/pre]
 bbcode: |-
+  <pre><code>class Zomg
+    include AModule
+    
+    def urmom
+      p "is fat"
+    end
+  end</code></pre>
+bbcode_only: |-
   <pre><code>class Zomg
     include AModule
     
@@ -70,6 +85,14 @@ bbcode: |-
       p "is fat" &lt;b&gt;some html&lt;/b&gt;
     end
   end</code></pre>
+bbcode_only: |-
+  <pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre>
 ---
 name: Preformatted Text with Explainations Before and After
 in: |-
@@ -85,6 +108,16 @@ in: |-
   
   I made a joke about your mother!
 bbcode: |-
+  <p>Here&#8217;s my code!</p>
+  <pre><code>class Zomg
+    include AModule
+
+    def urmom
+      p "is fat" &lt;b&gt;some html&lt;/b&gt;
+    end
+  end</code></pre>
+  <p>I made a joke about your mother!</p>
+bbcode_only: |-
   <p>Here&#8217;s my code!</p>
   <pre><code>class Zomg
     include AModule
@@ -117,6 +150,15 @@ bbcode: |-
   end
   <p>end[/pr]</p>
   <p>I made a joke about your mother!</p>
+bbcode_only: |-
+  <p>Here&#8217;s my code!</p>
+  <p>[pre]class Zomg<br />
+    include AModule</p>
+  <p>def urmom<br />
+      p &quot;is fat&quot; &lt;b&gt;some html&lt;/b&gt;<br />
+    end<br />
+  end[/pr]</p>
+  <p>I made a joke about your mother!</p>
 ---
 name: Textile does not render inside a preformatted tag
 in: |-
@@ -134,10 +176,12 @@ bbcode: |-
 name: quote tag
 in: '[quote]test[/quote]'
 bbcode: '<blockquote><p>test</p></blockquote>'
+bbcode_only: '<blockquote><p>test</p></blockquote>'
 ---
 name: quote tag with stuff after it
 in: "[quote]test[/quote]\n\nStuff"
 bbcode: "<blockquote><p>test</p></blockquote>\n<p>Stuff</p>"
+bbcode_only: "<blockquote><p>test</p></blockquote>\n<p>Stuff</p>"
 ---
 name: textile inside quotes
 in: '[quote]*test*[/quote]'
@@ -242,6 +286,7 @@ bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><but
 name: spoiler tag with title
 in: '[spoiler=About Your Mother]She does not sit in the house, she sits AROUND the house![/spoiler]'
 bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">About Your Mother</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>She does not sit in the house, she sits AROUND the house!</p></div></div></div>"
+bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">About Your Mother</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>She does not sit in the house, she sits AROUND the house!</p></div></div></div>"
 ---
 name: spoiler tag with pre tag of code
 in: |-
@@ -300,3 +345,9 @@ bbcode: |-
 name: inline spoilers
 in: "Remember, during the fight with the [spoiler]Masked Man[/spoiler] you do a few things!"
 bbcode: "<p>Remember, during the fight with the <span class=\"inline_spoiler\" style=\"color:#333;background-color:#333;\">Masked Man</span> you do a few things!</p>"
+---
+name: automatic linking
+in: "Go to http://fangamer.com for awesomesauce!"
+html: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
+bbcode: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
+bbcode_only: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"

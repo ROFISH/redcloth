@@ -87,6 +87,9 @@
   cee = [Cc] ;
   copyright = ( "[" cee "]" | "(" cee ")" ) ;
   entity = ( "&" %A ( '#' digit+ | ( alpha ( alpha | digit )+ ) ) %T ';' ) >X ;
+  
+  direct_uri = "http" "s"? "://" uchar+ absolute_path?;
+  automatic_url = space+ >X direct_uri >A %{ STORE_URL("href"); } space+;
 
   
   # info
@@ -148,6 +151,8 @@
     html_comment { INLINE(block, "inline_html"); };
     
     redcloth_version { INLINE(block, "inline_redcloth_version"); };
+    
+    automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "autolink");) };
     
     bbcode_tag => {
       if(BBCODE_ENABLED()) {

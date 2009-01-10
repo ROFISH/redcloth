@@ -150,6 +150,10 @@ module RedCloth::Formatters::HTML
     "<a href=\"#{escape_attribute opts[:href]}\"#{pba(opts)}>#{opts[:name]}</a>"
   end
   
+  def autolink(opts)
+    " #{link(opts)} "
+  end
+  
   def image(opts)
     opts.delete(:align)
     opts[:alt] = opts[:title]

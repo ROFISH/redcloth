@@ -41,7 +41,7 @@
   action bb_cat2html { CAT(html); }
   action bb_failed4html { rb_str_append(block,failed_start); rb_str_append(block,rb_funcall(self, rb_intern("escape"), 1, html)); fgoto bbcode_inline; }
   
-  bb_pre_tag := |*
+  bb_inline_pre_tag := |*
     bb_pre_tag_end {
       rb_hash_aset(regs, ID2SYM(rb_intern("text")), rb_funcall(self, rb_intern("escape_pre"), 1, html));
       rb_str_append(block,rb_funcall(self, rb_intern("bb_pre"), 1, regs));
@@ -68,11 +68,11 @@
     bb_acronym { PASS(block, "text", "acronym"); };
     bb_link    { PASS(block, "name", "link"); };
     bb_link2   { PASS(block, "name", "link"); };
-    bb_img     { PASS(block, "name", "image"); };
-    bb_img2    { PASS(block, "name", "image"); };
+    bb_img     { UNLESS_DISABLED_INLINE(block,image,PASS(block, "name", "image");); };
+    bb_img2    { UNLESS_DISABLED_INLINE(block,image,PASS(block, "name", "image");); };
     bb_spoiler { PASS(block, "name", "bb_spoiler"); };
     
-    bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_pre_tag; };
+    bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_inline_pre_tag; };
     default => { CAT(block); fret;};
   *|;
 

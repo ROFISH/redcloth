@@ -49,6 +49,35 @@ module RedCloth
     attr_accessor :lite_mode
     
     # Accessor for toggling BBCode
+    #
+    # BBCode is the language traditionally used in on a bulletin-board / forum
+    # to stylize text. When +:bbcode+ is set, it will enable the parsing of
+    # BBCode. Note that link aliases are disabled due to causing havoc on
+    # malformed coded. The following are the tags supported:
+    #
+    # * [b]
+    # * [i]
+    # * [u]
+    # * [s]
+    # * [ins]
+    # * [del]
+    # * [sup]
+    # * [sub]
+    # * [notextile]
+    # * [color]
+    # * [size]
+    # * [align]
+    # * [acronym]
+    # * [url]
+    # * [img]
+    # * [pre]
+    # * [quote]
+    # * [spoiler]
+    #
+    #   r = RedCloth.new( "Some text is meant to be [b]bold[/b], others [i]italic[/i].", [:bbcode] )
+    #   r.to_html
+    #   #=> "<p>Some text is meant to be <strong>bold</strong>, others <em>italic</em>.</p>"
+    #
     attr_accessor :bbcode
     
     def bbcode=(boolean)
@@ -59,7 +88,18 @@ module RedCloth
     end
     
     # Accessor for toggling BBCode only
+    #
+    # When dealing with large size forums, a lot of older users are
+    # too used to BBCode and do not want to apply Textile. Use +:bbcode_only+
+    # to only parse BBCode without parsing Textile.
+    #
     attr_accessor :bbcode_only
+    
+    def bbcode_only=(boolean)
+      #span caps shouldn't apply since we're not parsing for Textile
+      @no_span_caps = boolean
+      @bbcode_only = boolean
+    end
 
     #
     # Accessor for toggling span caps.

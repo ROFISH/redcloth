@@ -33,6 +33,7 @@ redcloth_bbcode(self, p, pe, refs)
   
   VALUE html = rb_str_new2("");
   VALUE failed_start = rb_str_new2("");
+  char *failed_start_point_p = NULL, *failed_start_point_ts = NULL, *failed_start_point_te = NULL;
   int stack[CALL_STACK_SIZE],top;
   
   %% write init;
