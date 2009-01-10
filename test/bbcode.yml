@@ -351,3 +351,58 @@ in: "Go to http://fangamer.com for awesomesauce!"
 html: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
 bbcode: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
 bbcode_only: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
+---
+name: no codes inside quote tag
+in: "[quote=[url]http://starmen.net[/url]]this should not work[/quote]"
+bbcode: "<p>[quote=<a href=\"http://starmen.net\">http://starmen.net</a>]this should not work[/quote]</p>"
+---
+name: quote tag with cite tag
+in: |- 
+  [quote][cite]From [url=http://bbc.co.uk]BBC News[/url][/cite]Blah Blah
+  
+  blah second paragraph[/quote]
+bbcode: |-
+  <blockquote><cite>From <a href="http://bbc.co.uk">BBC News</a></cite><p>Blah Blah</p>
+  <p>blah second paragraph</p></blockquote>
+---
+in: |-
+  [quote]this is a quote from a user[/quote]no space afterwards!
+bbcode: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>no space afterwards!</p>
+bbcode_only: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>no space afterwards!</p>
+---
+in: |-
+  [quote]this is a quote from a user[/quote]
+  one space afterwards!
+bbcode: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>one space afterwards!</p>
+bbcode_only: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>one space afterwards!</p>
+---
+in: |-
+  [quote]this is a quote from a user[/quote]
+  
+  two spaces afterwards!
+bbcode: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>two spaces afterwards!</p>
+bbcode_only: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>two spaces afterwards!</p>
+---
+in: |-
+  [quote]this is a quote from a user[/quote]
+  
+  
+  three spaces afterwards!
+bbcode: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>three spaces afterwards!</p>
+bbcode_only: |-
+  <blockquote><p>this is a quote from a user</p></blockquote>
+  <p>three spaces afterwards!</p>

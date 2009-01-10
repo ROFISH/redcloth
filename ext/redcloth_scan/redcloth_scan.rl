@@ -74,7 +74,9 @@
   bb_pre_tag_start = "[pre" [^\]]* "]" (space* "[code]")? ;
   bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
   
-  bb_quote_title = " title"? "=" bbmtext %{ STORE("cite"); } >A;
+  bb_quote_title1 = " title"? "=" bbmtext %{ STORE("cite"); } >A;
+  bb_quote_title2 = "][cite]" mtext %{ STORE("cite"); } >A "[/cite";
+  bb_quote_title = (bb_quote_title1|bb_quote_title2);
   bb_quote_tag_start = ("[quote" bb_quote_title? "]") ;
   bb_quote_tag_end =  "[/quote]" LF? ;
   
@@ -261,6 +263,9 @@
   
   bb_quote_tag := |*
     bb_quote_tag_end {
+      VALUE cite = ID2SYM(rb_intern("cite"));
+      if (rb_hash_aref(regs,cite) != Qnil)
+        rb_hash_aset(regs, cite, redcloth_inline2(self,rb_hash_aref(regs,cite),rb_hash_new()));
       rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
       rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
       extend = Qnil;
