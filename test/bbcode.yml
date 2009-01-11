@@ -420,3 +420,33 @@ bbcode_only: |-
   <blockquote><blockquote><p>This is a quote from a user</p></blockquote>
   <p>This is a reply</p></blockquote>
   <p>This is another reply</p>
+---
+name: Nested Quote
+in: |-
+  [quote=urmom][quote=lol]This is a quote from a user[/quote]This is a reply[/quote]
+
+  This is another reply
+bbcode: |-
+  <blockquote><cite>urmom</cite><blockquote><cite>lol</cite><p>This is a quote from a user</p></blockquote>
+  <p>This is a reply</p></blockquote>
+  <p>This is another reply</p>
+bbcode_only: |-
+  <blockquote><cite>urmom</cite><blockquote><cite>lol</cite><p>This is a quote from a user</p></blockquote>
+  <p>This is a reply</p></blockquote>
+  <p>This is another reply</p>
+---
+name: Nested Spoiler
+in: |-
+  [spoiler][spoiler]This is a quote from a user[/spoiler]This is a reply[/spoiler]
+
+  This is another reply
+bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
+bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
+---
+name: Nested Spoiler
+in: |-
+  [spoiler=title1][spoiler=title2]This is a quote from a user[/spoiler]This is a reply[/spoiler]
+
+  This is another reply
+bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title1</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title2</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
+bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title1</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title2</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
