@@ -415,6 +415,15 @@ in: |-
 bbcode: |-
   <blockquote><p>This is a reply</p></blockquote>
   <p>This is another reply</p>
-bbcode_only: |-
-  <blockquote><p>This is a reply</p></blockquote>
-  <p>This is another reply</p>
+#bbcode_only: |-
+#  <blockquote><p>This is a reply</p></blockquote>
+#  <p>This is another reply</p>
+#---
+#name: Nested spoiler
+#in: |-
+#  [spoiler][spoiler]This is a quote from a user[/spoiler]This is a reply[/spoiler]
+#
+#  This is another reply
+#bbcode: |-
+#  <blockquote><p>This is a reply</p></blockquote>
+#  <p>This is another reply</p>
