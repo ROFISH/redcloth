@@ -80,8 +80,8 @@
   bb_quote_tag_start = ("[quote" bb_quote_title? "]") ;
   bb_quote_tag_end =  "[/quote]" LF? ;
   
-  bb_spoiler_title = " title"? "=" bbmtext %{ if(store_title) STORE("title"); } >A;
-  bb_spoiler_tag_start = ("[spoiler" bb_spoiler_title? "]") ;
+  bb_spoiler_tag_title = " title"? "=" bbmtext %{ if(store_title) STORE("title"); } >A;
+  bb_spoiler_tag_start = ("[spoiler" bb_spoiler_tag_title? "]") ;
   bb_spoiler_tag_end =  "[/spoiler]" LF? ;
 
   # info

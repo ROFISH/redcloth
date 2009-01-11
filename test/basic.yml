@@ -317,11 +317,12 @@ lite_mode_html: |-
 ---
 name: percent sign
 desc: though percent signs indicate a span, they shouldn't be overly greedy.
+# EDITED FOR AUTOLINKING
 in: |-
   http://blah.com/one%20two%20three
   (min)5%-95%(max)
 html: |-
-  <p>http://blah.com/one%20two%20three<br />
+  <p><a href="http://blah.com/one%20two%20three">http://blah.com/one%20two%20three</a><br />
   (min)5%-95%(max)</p>
 --- 
 name: css class

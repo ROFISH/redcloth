@@ -15,8 +15,8 @@
   bb_quote_tag_start = ("[quote" bb_quote_title? "]") ;
   bb_quote_tag_end =  "[/quote]" LF? ;
   
-  bb_spoiler_title = " title"? "=" bbmtext %{ if(store_title) STORE("title"); } >A;
-  bb_spoiler_tag_start = ("[spoiler" bb_spoiler_title? "]") ;
+  bb_spoiler_tag_title = " title"? "=" bbmtext %{ if(store_title) STORE("title"); } >A;
+  bb_spoiler_tag_start = ("[spoiler" bb_spoiler_tag_title? "]") ;
   bb_spoiler_tag_end =  "[/spoiler]" LF? ;
   
   bbcode_tag = "[";
@@ -25,7 +25,7 @@
   double_return = LF{2,} ;
   
   direct_uri = "http" "s"? "://" uchar+ absolute_path?;
-  automatic_url = space+ >X direct_uri >A %{ STORE_URL("href"); } space+;
+  automatic_url = direct_uri >X >A %{ STORE_URL("href"); } ;
   
   bb_pre_tag := |*
     bb_pre_tag_end {
@@ -81,7 +81,7 @@
       CLEAR_REGS()
       fgoto main;
     };
-    automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "autolink");) };
+    automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
     bbcode_tag => {
       fhold;
       fcall bbcode_inline;

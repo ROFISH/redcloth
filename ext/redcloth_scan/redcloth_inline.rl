@@ -89,7 +89,7 @@
   entity = ( "&" %A ( '#' digit+ | ( alpha ( alpha | digit )+ ) ) %T ';' ) >X ;
   
   direct_uri = "http" "s"? "://" uchar+ absolute_path?;
-  automatic_url = space+ >X direct_uri >A %{ STORE_URL("href"); } space+;
+  automatic_url = direct_uri >X >A %{ STORE_URL("href"); } ;
 
   
   # info
@@ -152,7 +152,7 @@
     
     redcloth_version { INLINE(block, "inline_redcloth_version"); };
     
-    automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "autolink");) };
+    automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
     
     bbcode_tag => {
       if(BBCODE_ENABLED()) {

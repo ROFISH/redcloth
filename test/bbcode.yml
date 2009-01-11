@@ -352,6 +352,21 @@ html: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awes
 bbcode: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
 bbcode_only: "<p>Go to <a href=\"http://fangamer.com\">http://fangamer.com</a> for awesomesauce!</p>"
 ---
+name: more automatic linking
+in: |-
+  And another: written/pasted urls no longer automatically turn into links that you can click.
+
+  http://starmen.net 
+html: |- 
+  <p>And another: written/pasted urls no longer automatically turn into links that you can click.</p>
+  <p><a href="http://starmen.net">http://starmen.net</a></p>
+bbcode: |- 
+  <p>And another: written/pasted urls no longer automatically turn into links that you can click.</p>
+  <p><a href="http://starmen.net">http://starmen.net</a></p>
+bbcode_only: |- 
+  <p>And another: written/pasted urls no longer automatically turn into links that you can click.</p>
+  <p><a href="http://starmen.net">http://starmen.net</a></p>
+---
 name: no codes inside quote tag
 in: "[quote=[url]http://starmen.net[/url]]this should not work[/quote]"
 bbcode: "<p>[quote=<a href=\"http://starmen.net\">http://starmen.net</a>]this should not work[/quote]</p>"
@@ -450,3 +465,14 @@ in: |-
   This is another reply
 bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title1</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title2</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
 bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title1</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">title2</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>This is a quote from a user</p></div></div></div><p>This is a reply</p></div></div></div><p>This is another reply</p>"
+---
+name: Newlined inline spoilers with titles
+in: |-
+  bug: One must put two line breaks before a spoiler tag for it to not be the inline variety
+  [spoiler=this is a spoiler]rofish is not actually a fish[/spoiler]
+bbcode: |-
+  <p>bug: One must put two line breaks before a spoiler tag for it to not be the inline variety<br />
+  <span class="inline_spoiler" style="color:#333;background-color:#333;"><span class="inline_spoiler_title" style="color:#F00">this is a spoiler</span>rofish is not actually a fish</span></p>
+bbcode_only: |-
+  <p>bug: One must put two line breaks before a spoiler tag for it to not be the inline variety<br />
+  <span class="inline_spoiler" style="color:#333;background-color:#333;"><span class="inline_spoiler_title" style="color:#F00">this is a spoiler</span>rofish is not actually a fish</span></p>

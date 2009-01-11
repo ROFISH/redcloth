@@ -296,8 +296,9 @@ html: |-
   </table>
 ---
 name: tilde in innerHTML is not altered
+# EDITED DUE TO AUTOLINKS
 in: '<a href="http://foo.com/bar?something=1~2~3">http://foo.com/bar?something=1~2~3</a>'
-html: '<p><a href="http://foo.com/bar?something=1~2~3">http://foo.com/bar?something=1~2~3</a></p>'
+html: '<p><a href="http://foo.com/bar?something=1~2~3"><a href="http://foo.com/bar?something=1~2~3">http://foo.com/bar?something=1~2~3</a></a></p>'
 ---
 name: empty block
 in: |-

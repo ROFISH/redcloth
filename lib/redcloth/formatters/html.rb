@@ -151,7 +151,7 @@ module RedCloth::Formatters::HTML
   end
   
   def autolink(opts)
-    " #{link(opts)} "
+    " #{link(opts)}"
   end
   
   def image(opts)
@@ -188,7 +188,7 @@ module RedCloth::Formatters::HTML
   end
   
   def bb_spoiler(opts)
-    "<span class=\"inline_spoiler\" style=\"color:#333;background-color:#333;\">#{opts[:text]}</span>"
+    "<span class=\"inline_spoiler\" style=\"color:#333;background-color:#333;\">#{"<span class=\"inline_spoiler_title\" style=\"color:#F00\">#{opts[:title]}</span>" if opts[:title]}#{opts[:text]}</span>"
   end
   
   def bb_block_spoiler(opts)
