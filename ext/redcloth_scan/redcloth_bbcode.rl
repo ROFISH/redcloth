@@ -12,7 +12,7 @@
   #bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
   
   bb_quote_title = " title"? "=" bbmtext %{ if(store_cite) STORE("cite"); } >A;
-  bb_quote_tag_start = ("[quote" bb_quote_title? "]") ;
+  bb_quote_tag_start = LF? ("[quote" bb_quote_title? "]") ;
   bb_quote_tag_end =  "[/quote]" LF? ;
   
   bb_spoiler_tag_title = " title"? "=" bbmtext %{ if(store_title) STORE("title"); } >A;
@@ -36,7 +36,7 @@
       fgoto main;
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
   bb_quote_tag := |*
@@ -45,6 +45,7 @@
       if (nested_quote-- == 0) {
         rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
         rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+        nested_quote = 0;
         store_cite = 1;
         CLEAR(block);
         CLEAR_REGS();
@@ -53,7 +54,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
   bb_spoiler_tag := |*
@@ -62,6 +63,7 @@
       if (nested_spoiler-- == 0) {
         rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
         rb_str_append(html,rb_funcall(self, rb_intern("bb_block_spoiler"), 1, regs));
+        nested_spoiler = 0;
         store_title = 1;
         CLEAR(block);
         CLEAR_REGS();
@@ -70,7 +72,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
   block := |*
@@ -80,6 +82,13 @@
       CLEAR(block); 
       CLEAR_REGS()
       fgoto main;
+    };
+    bb_quote_tag_start {
+      rb_hash_aset(regs, ID2SYM(rb_intern("text")), rb_funcall(block,rb_intern("strip"),0));
+      rb_str_append(html, rb_funcall(self, rb_intern("p"), 1, regs));
+      CLEAR(block); 
+      CLEAR_REGS()
+      fgoto bb_quote_tag;
     };
     automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
     bbcode_tag => {

@@ -476,3 +476,41 @@ bbcode: |-
 bbcode_only: |-
   <p>bug: One must put two line breaks before a spoiler tag for it to not be the inline variety<br />
   <span class="inline_spoiler" style="color:#333;background-color:#333;"><span class="inline_spoiler_title" style="color:#F00">this is a spoiler</span>rofish is not actually a fish</span></p>
+---
+name: Bugged Quotes
+in: |-
+  [quote=1213106;captain_falcon:]A true sequel to Banjo Tooie would be nice. I havent played Nuts and Bolts yet, but right away, I can tell it wont have the same level of awesome that the first two had.[/quote]
+
+  [quote=1213274;Kumatora Cosplay:]A real sequel to Banjo-Kazooie.
+  [/quote]
+
+  How can you two judge something you've never played? Oh, wait... I forgot this was the Internet.
+  Still, Nuts and Bolts was awesome. There was so much to do, and it really felt like a Banjo-Kazooie game to me.
+bbcode: |-
+  <blockquote><cite>1213106;captain_falcon:</cite><p>A true sequel to Banjo Tooie would be nice. I havent played Nuts and Bolts yet, but right away, I can tell it wont have the same level of awesome that the first two had.</p></blockquote>
+  <blockquote><cite>1213274;Kumatora Cosplay:</cite><p>A real sequel to Banjo-Kazooie.</p></blockquote>
+  <p>How can you two judge something you&#8217;ve never played? Oh, wait&#8230; I forgot this was the Internet.<br />
+  Still, Nuts and Bolts was awesome. There was so much to do, and it really felt like a Banjo-Kazooie game to me.</p>
+bbcode_only: |-
+  <blockquote><cite>1213106;captain_falcon:</cite><p>A true sequel to Banjo Tooie would be nice. I havent played Nuts and Bolts yet, but right away, I can tell it wont have the same level of awesome that the first two had.</p></blockquote>
+  <blockquote><cite>1213274;Kumatora Cosplay:</cite><p>A real sequel to Banjo-Kazooie.</p></blockquote>
+  <p>How can you two judge something you&#8217;ve never played? Oh, wait... I forgot this was the Internet.<br />
+  Still, Nuts and Bolts was awesome. There was so much to do, and it really felt like a Banjo-Kazooie game to me.</p>
+---
+name: Inline Quotes actually become new blocks
+in: |-
+  "Evidence":http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330
+  [quote]And we test...[/quote]
+  [quote]...and test...[/quote]
+
+  ...Huh... it's even more evident here. No idea what's causing it.
+bbcode: |-
+  <p><a href="http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330">Evidence</a></p>
+  <blockquote><p>And we test&#8230;</p></blockquote>
+  <blockquote><p>&#8230;and test&#8230;</p></blockquote>
+  <p>&#8230;Huh&#8230; it&#8217;s even more evident here. No idea what&#8217;s causing it.</p>
+bbcode_only: |-
+  <p>&quot;Evidence&quot;:<a href="http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330">http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330</a></p>
+  <blockquote><p>And we test&#8230;</p></blockquote>
+  <blockquote><p>&#8230;and test&#8230;</p></blockquote>
+  <p>...Huh... it&#8217;s even more evident here. No idea what&#8217;s causing it.</p>

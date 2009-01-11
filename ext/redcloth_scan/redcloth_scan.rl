@@ -258,7 +258,7 @@
       fgoto main;
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
   bb_quote_tag := |*
@@ -270,6 +270,7 @@
           rb_hash_aset(regs, cite, redcloth_inline2(self,rb_hash_aref(regs,cite),rb_hash_new()));
         rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
         rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+        nested_quote = 0;
         extend = Qnil;
         store_cite = 1;
         CLEAR(block);
@@ -279,7 +280,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
   bb_spoiler_tag := |*
@@ -290,6 +291,7 @@
         rb_str_append(html,rb_funcall(self, rb_intern("bb_block_spoiler"), 1, regs));
         extend = Qnil;
         store_title = 1;
+        nested_spoiler = 0;
         CLEAR(block);
         CLEAR_REGS();
         fgoto main;
@@ -297,7 +299,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
 
   block := |*
@@ -312,6 +314,16 @@
       } else { 
         ADD_EXTENDED_BLOCK(); 
       } 
+    };
+    bb_quote_tag_start {
+      if (IS_NOT_EXTENDED()) { 
+        ADD_BLOCK(); 
+        fgoto bb_quote_tag; 
+      } else { 
+        ADD_EXTENDED_BLOCK();
+        END_EXTENDED(); 
+        fgoto bb_quote_tag;
+      }
     };
     double_return next_block_start { 
       if (IS_NOT_EXTENDED()) { 
