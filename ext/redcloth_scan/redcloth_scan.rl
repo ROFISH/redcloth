@@ -262,30 +262,27 @@
   *|;
   
   bb_quote_tag := |*
-    bb_quote_tag_start => { CLEAR(nested_block[top+1]); fcall bb_quote_tag; };
+    bb_quote_tag_start => { fgoto bb_nested_quote; };
     bb_quote_tag_end {
       VALUE cite = ID2SYM(rb_intern("cite"));
       if (rb_hash_aref(regs,cite) != Qnil)
         rb_hash_aset(regs, cite, redcloth_inline2(self,rb_hash_aref(regs,cite),rb_hash_new()));
-      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,nested_block[top]));
-      if (top > 1)
-        rb_str_append(nested_block[top-1],rb_funcall(self, rb_intern("bbquote"), 1, regs));
-      else
-        rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
+      rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
       extend = Qnil;
       CLEAR(block);
       CLEAR_REGS();
-      fret;
+      fgoto main;
     };
-    default => { CAT(nested_block[top]);};
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; top = 0; fgoto main; };
+    default => cat;
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   
-  #bb_nested_quote := |*
-  #  bb_quote_tag_end => { fgoto bb_quote_tag; };
-  #  EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
-  #  default => {};
-  #*|;
+  bb_nested_quote := |*
+    bb_quote_tag_end => { fgoto bb_quote_tag; };
+    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    default => {};
+  *|;
   
   bb_spoiler_tag := |*
     bb_spoiler_tag_end {
@@ -364,7 +361,7 @@
 
   main := |*
     bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_pre_tag; };
-    bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; CLEAR(nested_block[top+1]); if(top < CALL_STACK_SIZE) fcall bb_quote_tag; };
+    bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_quote_tag; };
     bb_spoiler_tag_start { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_spoiler_tag; };
     
     noparagraph_line_start  { ASET("type", "ignored_line"); fgoto noparagraph_line; };
