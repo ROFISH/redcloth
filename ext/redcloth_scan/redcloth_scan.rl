@@ -262,6 +262,7 @@
   *|;
   
   bb_quote_tag := |*
+    bb_quote_tag_start => { fgoto bb_nested_quote; };
     bb_quote_tag_end {
       VALUE cite = ID2SYM(rb_intern("cite"));
       if (rb_hash_aref(regs,cite) != Qnil)
@@ -275,6 +276,12 @@
     };
     default => cat;
     EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+  *|;
+  
+  bb_nested_quote := |*
+    bb_quote_tag_end => { fgoto bb_quote_tag; };
+    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    default => {};
   *|;
   
   bb_spoiler_tag := |*

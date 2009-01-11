@@ -406,3 +406,15 @@ bbcode: |-
 bbcode_only: |-
   <blockquote><p>this is a quote from a user</p></blockquote>
   <p>three spaces afterwards!</p>
+---
+name: Nested Quote
+in: |-
+  [quote][quote]This is a quote from a user[/quote]This is a reply[/quote]
+  
+  This is another reply
+bbcode: |-
+  <blockquote><p>This is a reply</p></blockquote>
+  <p>This is another reply</p>
+bbcode_only: |-
+  <blockquote><p>This is a reply</p></blockquote>
+  <p>This is another reply</p>
