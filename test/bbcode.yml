@@ -413,8 +413,10 @@ in: |-
   
   This is another reply
 bbcode: |-
-  <blockquote><p>This is a reply</p></blockquote>
+  <blockquote><blockquote><p>This is a quote from a user</p></blockquote>
+  <p>This is a reply</p></blockquote>
   <p>This is another reply</p>
 bbcode_only: |-
-  <blockquote><p>This is a reply</p></blockquote>
+  <blockquote><blockquote><p>This is a quote from a user</p></blockquote>
+  <p>This is a reply</p></blockquote>
   <p>This is another reply</p>

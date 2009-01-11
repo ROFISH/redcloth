@@ -50,6 +50,7 @@ redcloth_transform(self, p, pe, refs)
   
   VALUE failed_start = rb_str_new2("");
   char *failed_start_point_p = NULL, *failed_start_point_ts = NULL, *failed_start_point_te = NULL;
+  int nested_quote = 0;
   
   %% write init;
 

@@ -40,21 +40,18 @@
   *|;
   
   bb_quote_tag := |*
-    bb_quote_tag_start => { fgoto bb_nested_quote; };
+    bb_quote_tag_start => { CAT(block); ++nested_quote; };
     bb_quote_tag_end {
-      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
-      rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
-      CLEAR(block);
-      CLEAR_REGS();
-      fgoto main;
+      if (nested_quote-- == 0) {
+        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
+        rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+        CLEAR(block);
+        CLEAR_REGS();
+        fgoto main;
+      }
+      else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
-  *|;
-  
-  bb_nested_quote := |*
-    bb_quote_tag_end => { fgoto bb_quote_tag; };
-    default => {};
     EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
   *|;
   

@@ -262,26 +262,23 @@
   *|;
   
   bb_quote_tag := |*
-    bb_quote_tag_start => { fgoto bb_nested_quote; };
+    bb_quote_tag_start => { CAT(block); ++nested_quote; };
     bb_quote_tag_end {
-      VALUE cite = ID2SYM(rb_intern("cite"));
-      if (rb_hash_aref(regs,cite) != Qnil)
-        rb_hash_aset(regs, cite, redcloth_inline2(self,rb_hash_aref(regs,cite),rb_hash_new()));
-      rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
-      rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
-      extend = Qnil;
-      CLEAR(block);
-      CLEAR_REGS();
-      fgoto main;
+      if (nested_quote-- == 0) {
+        VALUE cite = ID2SYM(rb_intern("cite"));
+        if (rb_hash_aref(regs,cite) != Qnil)
+          rb_hash_aset(regs, cite, redcloth_inline2(self,rb_hash_aref(regs,cite),rb_hash_new()));
+        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,block));
+        rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
+        extend = Qnil;
+        CLEAR(block);
+        CLEAR_REGS();
+        fgoto main;
+      }
+      else { CAT(block); }
     };
     default => cat;
     EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
-  *|;
-  
-  bb_nested_quote := |*
-    bb_quote_tag_end => { fgoto bb_quote_tag; };
-    EOF => { CLEAR(block); CLEAR_REGS(); rb_str_append(block,failed_start); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
-    default => {};
   *|;
   
   bb_spoiler_tag := |*
