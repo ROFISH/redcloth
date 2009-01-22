@@ -1,5 +1,16 @@
 === Edge
 
+<<<<<<< HEAD
+=======
+* Fix bad parsing of bracketed image links (which would hang the interpreter in some cases). #97
+
+* Handle links containing parentheses.  Brackets are no longer required. #82 [Ryan Alyea]
+
+* Made italics use the correct LaTeX tag: textit rather than emph. #98
+
+* Fixed custom block signatures calling built-in Ruby String methods. #92
+
+>>>>>>> 974d39b... Fix bad parsing of bracketed image links (which would hang the interpreter in some cases). [#97 state:resolved]
 * Mentioned the three supported platforms and what's necessary to build RedCloth in the README file.
 
 * Fixed a require problem that caused an error when you would gem check --test RedCloth. #91

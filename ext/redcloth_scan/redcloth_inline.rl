@@ -22,7 +22,8 @@
   image_src = ( uri ) >A %{ STORE("src"); } ;
   image_is = ( A2 C ". "? image_src :> title? ) ;
   image_link = ( ":" uri >A %{ STORE_URL("href"); } ) ;
-  image = ( "["? "!" image_is "!" %A image_link? "]"? ) >X ;
+  image = ( "!" image_is "!" %A image_link? ) >X ;
+  bracketed_image = ( "[!" image_is "!" %A image_link? "]" ) >X ;
 
   # footnotes
   footno = "[" >X %A digit+ %T "]" ;
@@ -104,6 +105,7 @@
 
   main := |*
     image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
+    bracketed_image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
     
     link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("link_text"); PASS(block, "name", "link");) };
     bracketed_link { UNLESS_DISABLED_INLINE(block,bracketed_link,PARSE_LINK_ATTR("link_text"); PASS(block, "name", "link");) };
