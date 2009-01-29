@@ -1,7 +1,9 @@
 === Edge
 
-<<<<<<< HEAD
-=======
+* Don't allow square brackets inside lang attribute so double square brackets are interpreted like Textile 2 and RedCloth 3. #101
+
+* Improve LaTeX output for tables. #96
+
 * Fix bad parsing of bracketed image links (which would hang the interpreter in some cases). #97
 
 * Handle links containing parentheses.  Brackets are no longer required. #82 [Ryan Alyea]
@@ -10,7 +12,6 @@
 
 * Fixed custom block signatures calling built-in Ruby String methods. #92
 
->>>>>>> 974d39b... Fix bad parsing of bracketed image links (which would hang the interpreter in some cases). [#97 state:resolved]
 * Mentioned the three supported platforms and what's necessary to build RedCloth in the README file.
 
 * Fixed a require problem that caused an error when you would gem check --test RedCloth. #91
