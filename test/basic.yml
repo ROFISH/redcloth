@@ -267,8 +267,13 @@ html: <p>Please email why@domain.com or jason@domain.com.</p>
 name: del
 desc: To indicate a passage which has been deleted, surround the passage with hypens.
 in: I'm -sure- not sure.
-html: <p>I&#8217;m <del>sure</del> not sure.</p>
+html: "<p>I&#8217;m <del>sure</del> not sure.</p>"
 general_disable_inline: <p>I&#8217;m -sure- not sure.</p>
+--- 
+name: del beginning a phrase
+in: -delete-
+html: "<p><del>delete</del></p>"
+general_disable_inline: <p>-delete-</p>
 --- 
 name: ins
 desc: Pluses around a passage indicate its insertion.
