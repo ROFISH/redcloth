@@ -85,6 +85,7 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 #define PASS(H, A, T)  rb_str_append(H, red_pass(self, regs, ID2SYM(rb_intern(A)), rb_intern(T), refs))
 #define PARSE_ATTR(A)  red_parse_attr(self, regs, ID2SYM(rb_intern(A)))
 #define PARSE_LINK_ATTR(A)  red_parse_link_attr(self, regs, ID2SYM(rb_intern(A)))
+#define PARSE_IMAGE_ATTR(A)  red_parse_image_attr(self, regs, ID2SYM(rb_intern(A)))
 #define PASS_CODE(H, A, T) rb_str_append(H, red_pass_code(self, regs, ID2SYM(rb_intern(A)), rb_intern(T)))
 #define ADD_BLOCK() \
   rb_str_append(html, red_block(self, regs, block, refs)); \

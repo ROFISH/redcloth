@@ -34,8 +34,8 @@
   bracketed_link = ( '["' link_says '":' %A uri %{ STORE("href"); } :> "]" ) >X ;
 
   # images
-  image_src = ( uri ) >A %{ STORE("src"); } ;
-  image_is = ( A2 C ". "? image_src :> title? ) ;
+  image_title = ( '(' mtext ')' ) ;
+  image_is = ( A2 C ". "? (uri image_title?) >A %{ STORE("src"); } ) ;
   image_link = ( ":" uri >A %{ STORE_URL("href"); } ) ;
   image = ( "!" image_is "!" %A image_link? ) >X %SET_ATTR ;
   bracketed_image = ( "[!" image_is "!" %A image_link? "]" ) >X %SET_ATTR ;
@@ -112,8 +112,8 @@
   *|;
 
   main := |*
-    image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
-    bracketed_image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
+    image { UNLESS_DISABLED_INLINE(block,image,PARSE_IMAGE_ATTR("src"); INLINE(block, "image");) };
+    bracketed_image { UNLESS_DISABLED_INLINE(block,image,PARSE_IMAGE_ATTR("src"); INLINE(block, "image");) };
     
     link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
     bracketed_link { UNLESS_DISABLED_INLINE(block,bracketed_link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
