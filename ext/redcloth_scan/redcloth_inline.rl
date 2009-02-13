@@ -12,7 +12,7 @@
   mtext_noquotes = mtext -- '"' ;
   quoted_mtext = '"' mtext_noquotes '"' ;
   mtext_including_quotes = (mtext_noquotes ' "' mtext_noquotes '" ' mtext_noquotes?)+ ;
-  link_says = ( C_noactions "."* " "* ((quoted_mtext | mtext_including_quotes | mtext_noquotes) -- '":') ) >A %{ STORE("link_text"); } ;
+  link_says = ( C_noactions "."* " "* ((quoted_mtext | mtext_including_quotes | mtext_noquotes) -- '":') ) >A %{ STORE("name"); } ;
   link_says_noquotes_noactions = ( C_noquotes_noactions "."* " "* ((mtext_noquotes) -- '":') ) ;
   link = ( '"' link_says '":' %A uri %{ STORE_URL("href"); } ) >X ;
   link_noquotes_noactions = ( '"' link_says_noquotes_noactions '":' uri ) ;
@@ -104,8 +104,8 @@
     image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
     bracketed_image { UNLESS_DISABLED_INLINE(block,image,INLINE(block, "image");) };
     
-    link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("link_text"); PASS(block, "name", "link");) };
-    bracketed_link { UNLESS_DISABLED_INLINE(block,bracketed_link,PARSE_LINK_ATTR("link_text"); PASS(block, "name", "link");) };
+    link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
+    bracketed_link { UNLESS_DISABLED_INLINE(block,bracketed_link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
     
     code { UNLESS_DISABLED_INLINE(block,code,PARSE_ATTR("text"); PASS_CODE(block, "text", "code", opts);) };
     code_tag_start { CAT(block); fgoto code_tag; };

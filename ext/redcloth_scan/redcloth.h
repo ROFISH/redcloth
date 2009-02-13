@@ -95,14 +95,12 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 #define ASET(T, V)     rb_hash_aset(regs, ID2SYM(rb_intern(T)), STR_NEW2(V));
 #define AINC(T)        red_inc(regs, ID2SYM(rb_intern(T)));
 #define SET_ATTRIBUTES() \
-  VALUE buf = Qnil; \
   SET_ATTRIBUTE("class_buf", "class"); \
   SET_ATTRIBUTE("id_buf", "id"); \
   SET_ATTRIBUTE("lang_buf", "lang"); \
   SET_ATTRIBUTE("style_buf", "style");
 #define SET_ATTRIBUTE(B, A) \
-  buf = rb_hash_aref(regs, ID2SYM(rb_intern(B))); \
-  if (buf != Qnil) rb_hash_aset(regs, ID2SYM(rb_intern(A)), buf);
+  if (rb_hash_aref(regs, ID2SYM(rb_intern(B))) != Qnil) rb_hash_aset(regs, ID2SYM(rb_intern(A)), rb_hash_aref(regs, ID2SYM(rb_intern(B))));
 #define TRANSFORM(T) \
   if (p > reg && reg >= ts) { \
     VALUE str = redcloth_transform(self, reg, p, refs); \

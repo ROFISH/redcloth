@@ -165,18 +165,8 @@ module RedCloth::Formatters::HTML
     "</blockquote>\n"
   end
   
-  LINK_TEXT_WITH_TITLE_RE = /
-          ([^"]+?)         # $text
-          \s?
-          \(([^)]+?)\)     # $title
-          $
-      /x
   def link(opts)
-    if opts[:name] =~ LINK_TEXT_WITH_TITLE_RE
-      md = LINK_TEXT_WITH_TITLE_RE.match(opts[:name])
-      opts[:name] = md[1]
-      opts[:title] = md[2]
-    elsif opts[:name].nil? && !opts[:href].nil?
+    if opts[:name].nil? && !opts[:href].nil?
       opts[:name] = opts[:href]
     end
     "<a href=\"#{escape_attribute opts[:href]}\"#{pba(opts)}>#{opts[:name]}</a>"
