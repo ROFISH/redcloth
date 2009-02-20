@@ -143,7 +143,7 @@ redcloth_inline(self, p, pe, refs)
   VALUE refs;
 {
   int cs, act;
-  char *ts, *te, *reg, *eof;
+  char *ts = NULL, *te = NULL, *reg = NULL, *eof = NULL;
   char *orig_p = p, *orig_pe = pe;
   VALUE block = STR_NEW2("");
   VALUE regs = Qnil;
