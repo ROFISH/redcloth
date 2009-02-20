@@ -350,6 +350,28 @@ module RedCloth::Formatters::HTML
     opts[:text] + "\n"
   end
   
+private
+  
+  # escapement for regular HTML (not in PRE tag)
+  def escape(text)
+    html_esc(text)
+  end
+
+  # escapement for HTML in a PRE tag
+  def escape_pre(text)
+    html_esc(text, :html_escape_preformatted)
+  end
+  
+  # escaping for HTML attributes
+  def escape_attribute(text)
+    html_esc(text, :html_escape_attributes)
+  end
+  
+  def after_transform(text)
+    text.chomp!
+  end
+  
+  
   def before_transform(text)
     clean_html(text) if sanitize_html
   end

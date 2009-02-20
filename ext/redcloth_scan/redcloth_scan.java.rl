@@ -160,7 +160,8 @@ public class RedclothScanService implements BasicLibraryService {
           ((RubyHash)regs).aset(sym_text, inline2(self, block, refs));
         }
 
-        if(self.respondsTo(method.asJavaString())) {
+        IRubyObject formatterMethods = ((RubyObject)self).callMethod(runtime.getCurrentContext(), "formatter_methods");
+        if( ((RubyArray)formatterMethods).includes(runtime.getCurrentContext(), method) ) {
           block = self.callMethod(runtime.getCurrentContext(), method.asJavaString(), regs);
         } else {
           IRubyObject fallback = ((RubyHash)regs).aref(runtime.newSymbol("fallback"));
