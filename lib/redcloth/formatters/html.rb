@@ -1,8 +1,28 @@
 module RedCloth::Formatters::HTML
   include RedCloth::Formatters::Base
   
+  SWEARWORDS = [
+    {:code=>/bullshit/,:replace=>"bullcrap"},
+    {:code=>/f[^a-zA-Z0-9]*[u*]+[^a-zA-Z0-9]*c[^a-zA-Z0-9]*k(er)?/,:replace=>"****"},
+    {:code=>/sh[i1!]t(t?y)?/,:replace=>"****"},
+    {:code=>/tits/,:replace=>"****"},
+    {:code=>/motherfucker/,:replace=>"******"},
+    {:code=>/bitch/,:replace=>"****"},
+    {:code=>/cunt/,:replace=>"****"},
+    {:code=>/asshole/,:replace=>"*******"},
+    {:code=>/cocksucker/,:replace=>"****"},
+    {:code=>/cock/,:replace=>"****"},
+    {:code=>/n(!|\||\!|i|1|\*)gg((!|3|e|\*)(!|r|4)|a)/,:replace=>"African-American"},
+    {:code=>/fag(got)?/,:replace=>"***"}
+  ]
+  
   # escapement for regular HTML (not in PRE tag)
   def escape(text)
+    if self.filter_swears == true
+      for swear in SWEARWORDS
+        text.gsub!(swear[:code],swear[:replace])
+      end
+    end
     html_esc(text)
   end
 
