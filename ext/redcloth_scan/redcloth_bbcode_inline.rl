@@ -74,7 +74,7 @@
     bb_spoiler { PASS(block, "name", "bb_spoiler"); CLEAR_REGS();};
     
     bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_inline_pre_tag; };
-    default => { CAT(block); CLEAR_REGS(); fret;};
+    default => { CAT(block); fret;};
   *|;
 
 }%%;

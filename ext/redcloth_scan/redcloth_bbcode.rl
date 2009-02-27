@@ -20,6 +20,7 @@
   bb_spoiler_tag_end =  "[/spoiler]" LF? ;
   
   bbcode_tag = "[";
+  bbcode_tag_not_quote_end = bbcode_tag -- bb_quote_tag_end;
   
   blank_line = LF;
   double_return = LF{2,} ;
@@ -43,7 +44,8 @@
     bb_quote_tag_start => { CAT(block); ++nested_quote; };
     bb_quote_tag_end {
       if (nested_quote-- == 0) {
-        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
+        //printf("\n\nQUOTE TAG: %s \n\n",RSTRING_PTR(rb_funcall(block,rb_intern("strip"),0)));
+        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_bbcode2(self,rb_funcall(block,rb_intern("strip"),0),rb_hash_new()));
         rb_str_append(html,rb_funcall(self, rb_intern("bbquote"), 1, regs));
         nested_quote = 0;
         store_cite = 1;
@@ -61,7 +63,7 @@
     bb_spoiler_tag_start => { CAT(block); ++nested_spoiler; };
     bb_spoiler_tag_end {
       if (nested_spoiler-- == 0) {
-        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_transform2(self,rb_funcall(block,rb_intern("strip"),0)));
+        rb_hash_aset(regs, ID2SYM(rb_intern("text")), redcloth_bbcode2(self,rb_funcall(block,rb_intern("strip"),0),rb_hash_new()));
         rb_str_append(html,rb_funcall(self, rb_intern("bb_block_spoiler"), 1, regs));
         nested_spoiler = 0;
         store_title = 1;
@@ -111,8 +113,8 @@
     #  fcall bbcode_inline;
     #};
     bb_pre_tag_start => { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; fgoto bb_pre_tag; };
-    bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_cite = 0; fgoto bb_quote_tag; };
-    bb_spoiler_tag_start { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_title = 0; fgoto bb_spoiler_tag; };
+    bb_quote_tag_start => { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_cite = 0; fgoto bb_quote_tag; };
+    bb_spoiler_tag_start => { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_title = 0; fgoto bb_spoiler_tag; };
     blank_line => cat;
     default => { fhold; fgoto block; };
   *|;

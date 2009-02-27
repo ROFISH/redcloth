@@ -511,8 +511,8 @@ bbcode: |-
   <p>&#8230;Huh&#8230; it&#8217;s even more evident here. No idea what&#8217;s causing it.</p>
 bbcode_only: |-
   <p>&quot;Evidence&quot;:<a href="http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330">http://forum.starmen.net/forum/General/BFG/THE-RARE-TOPIC/1213330</a></p>
-  <blockquote><p>And we test&#8230;</p></blockquote>
-  <blockquote><p>&#8230;and test&#8230;</p></blockquote>
+  <blockquote><p>And we test...</p></blockquote>
+  <blockquote><p>...and test...</p></blockquote>
   <p>...Huh... it&#8217;s even more evident here. No idea what&#8217;s causing it.</p>
 ---
 name: swear filter
@@ -527,3 +527,17 @@ in: |-
 filter_swears: |-
   <p>Check out <a href="http://mashitheinsane.deviantart.com/">my site</a>!</p>
   <p>Check out <a href="http://mashitheinsane.deviantart.com/">my site</a>!</p>
+---
+name: nested bbcode inside quote tags
+in: |-
+  [quote]test [b]test[/b][/quote]
+bbcode: |-
+  <blockquote><p>test <strong>test</strong></p></blockquote>
+bbcode_only: |-
+  <blockquote><p>test <strong>test</strong></p></blockquote>
+---
+name: nested bbcode inside spoiler tags
+in: |-
+  [spoiler]test [b]test[/b][/spoiler]
+bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>test <strong>test</strong></p></div></div></div>"
+bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>test <strong>test</strong></p></div></div></div>"
