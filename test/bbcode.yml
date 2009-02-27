@@ -541,3 +541,12 @@ in: |-
   [spoiler]test [b]test[/b][/spoiler]
 bbcode: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>test <strong>test</strong></p></div></div></div>"
 bbcode_only: "<div class=\"spoiler_container\"><div class=\"spoileroncontainer\"><button type=\"button\" class=\"button spoileron\" title=\"Click to show the spoiler.\">Show Spoiler</button></div><div class=\"spoiler\"><div class=\"spoileroffcontainer\"><button type=\"button\" class=\"button spoileroff\" title=\"Click to hide the spoiler.\">hide spoiler</button><br/></div><div class=\"spoilertext\"><p>test <strong>test</strong></p></div></div></div>"
+---
+name: missing line feeds?
+in: |-
+  So Jeff's eyes are [color=green]green![/color]
+
+  Why are Ness and Jeff wearing more makeup than Paula? The hypocrisy!
+bbcode_only: |-
+  <p>So Jeff&#8217;s eyes are <span style="color:green;">green!</span></p>
+  <p>Why are Ness and Jeff wearing more makeup than Paula? The hypocrisy!</p>

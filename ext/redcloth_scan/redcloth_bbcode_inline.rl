@@ -39,6 +39,8 @@
   bb_spoiler_title = " title"? "=" bbmtext %{ STORE("title"); } >A;
   bb_spoiler = "[spoiler" >X bb_spoiler_title? "]"  mtext >A %T :> "[/spoiler]" ;
   
+  nl = "\n";
+  
   action bb_cat2html { CAT(html); }
   action bb_failed4html { rb_str_append(block,failed_start); rb_str_append(block,rb_funcall(self, rb_intern("escape"), 1, html)); fgoto bbcode_inline; }
   
@@ -74,6 +76,7 @@
     bb_spoiler { PASS(block, "name", "bb_spoiler"); CLEAR_REGS();};
     
     bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_inline_pre_tag; };
+    nl => { fhold; fret; };
     default => { CAT(block); fret;};
   *|;
 
