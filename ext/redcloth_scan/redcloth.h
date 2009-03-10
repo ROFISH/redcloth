@@ -33,6 +33,8 @@ VALUE red_pass(VALUE, VALUE, VALUE, ID, VALUE);
 VALUE red_pass_code(VALUE, VALUE, VALUE, ID);
 VALUE redcloth_bbcode(VALUE, char *, char *, VALUE);
 VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
+VALUE redcloth_bbcode_inline(VALUE, char *, char *, VALUE);
+VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 
 /* parser macros */
 #define CALL_STACK_SIZE 20

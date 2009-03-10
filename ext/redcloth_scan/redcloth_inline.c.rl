@@ -21,10 +21,13 @@ red_pass(VALUE self, VALUE regs, VALUE ref, ID meth, VALUE refs)
 {
   VALUE txt = rb_hash_aref(regs, ref);
   if (!NIL_P(txt)) {
+    //printf("red_pass() '%s'\n", RSTRING(txt)->ptr);
     if (rb_funcall(self, rb_intern("bbcode_only"), 0) == Qtrue){
-      //rb_hash_aset(regs, ref, redcloth_inline2(self, txt, refs));
+      //rb_hash_aset(regs, ref, redcloth_bbcode_inline2(self, txt, refs));
+      rb_hash_aset(regs, ref, redcloth_bbcode_inline2(self, txt, refs));
     }
     else {
+      //printf("red_pass() '%s'\n", RSTRING(txt)->ptr);
       rb_hash_aset(regs, ref, redcloth_inline2(self, txt, refs));
     }
   }

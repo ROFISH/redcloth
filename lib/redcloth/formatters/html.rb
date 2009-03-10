@@ -190,8 +190,8 @@ module RedCloth::Formatters::HTML
     "<span style=\"font-size:#{opts[:size]}#{"em" unless %w(em px pt %).include?(opts[:size][-2..-1])};\">#{opts[:text]}</span>"
   end
   
-  def align(opts)
-    "<div style=\"text-align:#{opts[:align]};\">#{opts[:text]}</div>"
+  def bbalign(opts)
+    "<div style=\"text-align:#{opts[:bbalign]};\">#{opts[:text]}</div>"
   end
   
   def bbquote(opts)

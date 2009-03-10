@@ -550,3 +550,45 @@ in: |-
 bbcode_only: |-
   <p>So Jeff&#8217;s eyes are <span style="color:green;">green!</span></p>
   <p>Why are Ness and Jeff wearing more makeup than Paula? The hypocrisy!</p>
+---
+name: sarsie's tests #1
+in: "[color=red][b]Bold and Red[/b][/color]"
+bbcode: <p><span style="color:red;"><strong>Bold and Red</strong></span></p>
+bbcode_only: <p><span style="color:red;"><strong>Bold and Red</strong></span></p>
+---
+name: sarsies test #2 - improper nesting should cause errors
+in: "[u][b]Bold[/b][/u][b][u]and[/b][/u][b][u]underlined.[/u][/b]"
+bbcode: <p><ins><strong>Bold</strong></ins><strong>[u]and</strong>[/u]<strong><ins>underlined.</ins></strong></p>
+bbcode_only: <p><ins><strong>Bold</strong></ins><strong>[u]and</strong>[/u]<strong><ins>underlined.</ins></strong></p>
+---
+name: sarsies test #3 - same as above
+in: "[i][b]Bold[/b][/i][b][i]and[/b][/i][b][i]italicized.[/i][/b]"
+bbcode: <p><em><strong>Bold</strong></em><strong>[i]and</strong>[/i]<strong><em>italicized.</em></strong></p>
+bbcode_only: <p><ins><strong>Bold</strong></ins><strong>[u]and</strong>[/u]<strong><ins>underlined.</ins></strong></p>
+---
+name: sarsies test #4
+in: |-
+  [color=blue][size=3]Blue and Size 3[/size][/color]
+  [size=3][color=blue]Size 3 and Blue[/color][/size]
+bbcode: |-
+  <p><span style="color:blue;"><span style="font-size:3em;">Blue and Size 3</span></span><br />
+  <span style="font-size:3em;"><span style="color:blue;">Size 3 and Blue</span></span></p>
+bbcode_only: |-
+  <p><span style="color:blue;"><span style="font-size:3em;">Blue and Size 3</span></span><br />
+  <span style="font-size:3em;"><span style="color:blue;">Size 3 and Blue</span></span></p>
+---
+name: sarsie test #5
+in: |-
+  [align=right] [s] [color=green] [size=3] [b] [u] [i] Omni Text [/i] [/u] [/b] [/size] [/color] [/s] [/align]
+  [align=right][s][color=green][size=3][b][u]Omni Text[/u][/b][/size][/color][/s][/align]
+bbcode: |-
+  <p><div style="text-align:right;"> <del> <span style="color:green;"> <span style="font-size:3em;"> <strong> <ins> <em> Omni Text </em> </ins> </strong> </span> </span> </del> </div><br />
+  <div style="text-align:right;"><del><span style="color:green;"><span style="font-size:3em;"><strong><ins>Omni Text</ins></strong></span></span></del></div></p>
+bbcode_only: |-
+  <p><div style="text-align:right;"> <del> <span style="color:green;"> <span style="font-size:3em;"> <strong> <ins> <em> Omni Text </em> </ins> </strong> </span> </span> </del> </div><br />
+  <div style="text-align:right;"><del><span style="color:green;"><span style="font-size:3em;"><strong><ins>Omni Text</ins></strong></span></span></del></div></p>
+---
+name: sarsie test #6
+in: "[img=http://mednafen.sourceforge.net/newlogo.png][/img]"
+bbcode: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" /></p>
+bbcode_only: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" /></p>

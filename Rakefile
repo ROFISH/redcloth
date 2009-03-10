@@ -68,7 +68,7 @@ case RUBY_PLATFORM
 when /mingw/
   
   filename = "lib/redcloth_scan.so"
-  file filename => FileList["#{ext}/redcloth_scan.c", "#{ext}/redcloth_inline.c", "#{ext}/redcloth_attributes.c", "#{ext}/redcloth_bbcode.c"] do
+  file filename => FileList["#{ext}/redcloth_scan.c", "#{ext}/redcloth_inline.c", "#{ext}/redcloth_attributes.c", "#{ext}/redcloth_bbcode.c","#{ext}/redcloth_bbcode_inline.c"] do
     cp "ext/mingw-rbconfig.rb", "#{ext}/rbconfig.rb"
     Dir.chdir("ext/redcloth_scan") do
       ruby "-I. extconf.rb"
@@ -90,7 +90,7 @@ when /java/
   
 else
   filename = "#{ext}/redcloth_scan.#{Config::CONFIG['DLEXT']}"
-  file filename => FileList["#{ext}/redcloth_scan.c", "#{ext}/redcloth_inline.c", "#{ext}/redcloth_attributes.c", "#{ext}/redcloth_bbcode.c",]
+  file filename => FileList["#{ext}/redcloth_scan.c", "#{ext}/redcloth_inline.c", "#{ext}/redcloth_attributes.c", "#{ext}/redcloth_bbcode.c","#{ext}/redcloth_bbcode_inline.c"]
 end
 
 task :compile => [filename]
@@ -104,7 +104,7 @@ def ragel(target_file, source_file)
 end
 
 # Make sure the .c files exist if you try the Makefile, otherwise Ragel will have to generate them.
-file "#{ext}/Makefile" => ["#{ext}/extconf.rb", "#{ext}/redcloth_scan.c","#{ext}/redcloth_inline.c","#{ext}/redcloth_bbcode.c","#{ext}/redcloth_attributes.c","#{ext}/redcloth_scan.o","#{ext}/redcloth_inline.o","#{ext}/redcloth_attributes.o","#{ext}/redcloth_bbcode.o"]
+file "#{ext}/Makefile" => ["#{ext}/extconf.rb", "#{ext}/redcloth_scan.c","#{ext}/redcloth_inline.c","#{ext}/redcloth_bbcode.c","#{ext}/redcloth_attributes.c","#{ext}/redcloth_bbcode_inline.c","#{ext}/redcloth_scan.o","#{ext}/redcloth_inline.o","#{ext}/redcloth_attributes.o","#{ext}/redcloth_bbcode.o","#{ext}/redcloth_bbcode_inline.o"]
 
 # Ragel-generated C files
 file "#{ext}/redcloth_scan.c" =>  ["#{ext}/redcloth_scan.c.rl",   "#{ext}/redcloth_scan.rl", "#{ext}/redcloth_common.c.rl",   "#{ext}/redcloth_common.rl",  "#{ext}/redcloth.h"] do
@@ -118,6 +118,9 @@ file "#{ext}/redcloth_attributes.c" =>  ["#{ext}/redcloth_attributes.c.rl",   "#
 end
 file "#{ext}/redcloth_bbcode.c" =>  ["#{ext}/redcloth_bbcode.c.rl",   "#{ext}/redcloth_bbcode.rl", "#{ext}/redcloth_common.c.rl",   "#{ext}/redcloth_common.rl",  "#{ext}/redcloth.h"] do
   ragel "#{ext}/redcloth_bbcode.c", "#{ext}/redcloth_bbcode.c.rl"
+end
+file "#{ext}/redcloth_bbcode_inline.c" => ["#{ext}/redcloth_bbcode_inline.c.rl", "#{ext}/redcloth_bbcode_inline.rl"] do
+  ragel "#{ext}/redcloth_bbcode_inline.c", "#{ext}/redcloth_bbcode_inline.c.rl"
 end
 
 # Ragel-generated Java files

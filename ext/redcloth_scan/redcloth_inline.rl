@@ -157,6 +157,7 @@
     bbcode_tag => {
       if(BBCODE_ENABLED()) {
         //hold required because p gets advanced on a string match and we want to start parsing bbcode with the staring [ bracket.
+        //printf("bbcode_tag '%s'\n", p);
         fhold;
         fcall bbcode_inline;
       }
