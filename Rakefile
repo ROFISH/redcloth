@@ -36,7 +36,7 @@ e = Echoe.new('RedCloth', RedCloth::VERSION.to_s) do |p|
     when /java/
       self.files += ['lib/redcloth_scan.jar']
     else
-      self.files += %w[attributes inline scan bbcode].map {|f| "ext/redcloth_scan/redcloth_#{f}.c"}
+      self.files += %w[attributes inline scan bbcode bbcode_inline].map {|f| "ext/redcloth_scan/redcloth_#{f}.c"}
     end
     
     self.require_paths << "lib/case_sensitive_require"
