@@ -18,6 +18,7 @@ module Test
             end
           else
             define_method("test_#{formatter}_#{name}_raises_nothing") do
+              #p doc
               assert_nothing_raised(Exception) { method("format_as_#{formatter}").call(doc) }
             end
           end

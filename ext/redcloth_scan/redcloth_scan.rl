@@ -258,7 +258,7 @@
       fgoto main;
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto done; };
   *|;
   
   bb_quote_tag := |*
@@ -280,7 +280,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); ADD_BLOCK(); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto done; };
   *|;
   
   bb_spoiler_tag := |*
@@ -299,7 +299,7 @@
       else { CAT(block); }
     };
     default => cat;
-    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto block; };
+    EOF => { CLEAR(block); CLEAR_REGS(); RESET_TYPE(); rb_str_append(block,failed_start); failed_start = rb_str_new2(""); p = failed_start_point_p; ts = failed_start_point_ts; te = failed_start_point_te; fgoto done; };
   *|;
 
   block := |*
@@ -316,6 +316,7 @@
       } 
     };
     bb_quote_tag_start {
+      //printf("bb_quote_tag_start");
       if (IS_NOT_EXTENDED()) { 
         ADD_BLOCK(); 
         fgoto bb_quote_tag; 
@@ -372,6 +373,10 @@
     long_dd         { INLINE(html, "dd"); CLEAR_REGS(); };
     block_end       { ADD_BLOCK(); INLINE(html, "dl_close");  fgoto main; };
     default => cat;
+  *|;
+  
+  done := |*
+    EOF;
   *|;
 
   main := |*

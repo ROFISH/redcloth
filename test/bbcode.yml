@@ -592,3 +592,7 @@ name: sarsie test #6
 in: "[img=http://mednafen.sourceforge.net/newlogo.png][/img]"
 bbcode: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" /></p>
 bbcode_only: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" /></p>
+---
+name: shouldn't infinite loop
+in: "[quote=1310865;Chatterb0x:]I'm pretty sure I've posted this before, but as far as God and science commingling, it is a necessity. Why? Science is an absolute system. We are able to observe, repeat, and falsify because God's creation is orderly and upheld by His power. Secular worldviews cannot account for this. Motu, you hypothesized a universe that is orderly without God. This may be fine but what's important important to note is that such a statement is unscientific because it can never meet the above criteria (neither can God's special creation).[quote]"
+bbcode: dfssd
