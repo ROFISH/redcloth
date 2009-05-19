@@ -107,7 +107,7 @@
     link { UNLESS_DISABLED_INLINE(block,link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
     bracketed_link { UNLESS_DISABLED_INLINE(block,bracketed_link,PARSE_LINK_ATTR("name"); PASS(block, "name", "link");) };
     
-    code { UNLESS_DISABLED_INLINE(block,code,PARSE_ATTR("text"); PASS_CODE(block, "text", "code", opts);) };
+    code { UNLESS_DISABLED_INLINE(block,code,PASS_CODE(block, "text", "code", opts);) };
     code_tag_start { CAT(block); fgoto code_tag; };
     notextile { INLINE(block, "notextile"); };
     strong { UNLESS_DISABLED_INLINE(block,strong,PARSE_ATTR("text"); PASS(block, "text", "strong");) };
