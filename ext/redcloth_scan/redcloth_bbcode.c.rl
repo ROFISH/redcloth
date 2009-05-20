@@ -26,6 +26,7 @@ redcloth_bbcode(self, p, pe, refs)
   char *ts = NULL, *te = NULL, *reg = NULL, *bck = NULL, *eof = NULL;
   char *orig_p = p, *orig_pe = pe;
   VALUE block = STR_NEW2("");
+  VALUE attr_regs = Qnil;
   VALUE regs = Qnil; CLEAR_REGS()
   unsigned int opts = 0;
   VALUE buf = Qnil;

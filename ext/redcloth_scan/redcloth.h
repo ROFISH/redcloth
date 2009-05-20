@@ -69,10 +69,11 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
   else {   /*VALUE test = STR_NEW(ts,te-ts); printf("\nred_passthrough_else() '%s'\n", RSTRING(test)->ptr);*/ F }
 #define UNLESS_DISABLED_ATTRIBUTE(T, F) \
   if (!(rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue)) { F } //if !(rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { F }
-#define CLEAR_REGS()   regs = rb_hash_new();
+#define CLEAR_REGS()   regs = rb_hash_new(); attr_regs = rb_hash_new();
 #define RESET_REG()    reg = NULL
 #define MARK()         reg = p;
 #define MARK_B()       bck = p;
+#define MARK_ATTR()    attr_reg = p;
 #define CAT(H)         rb_str_cat(H, ts, te-ts)
 #define CLEAR(H)       H = STR_NEW2("")
 #define RSTRIP_BANG(H)      rb_funcall(H, rb_intern("rstrip!"), 0)
@@ -95,13 +96,16 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 #define ADD_BLOCKCODE()    rb_str_append(html, red_blockcode(self, regs, block)); CLEAR(block); CLEAR_REGS()
 #define ADD_EXTENDED_BLOCKCODE()    rb_str_append(html, red_blockcode(self, regs, block)); CLEAR(block);
 #define ASET(T, V)     rb_hash_aset(regs, ID2SYM(rb_intern(T)), STR_NEW2(V));
-#define AINC(T)        red_inc(regs, ID2SYM(rb_intern(T)));
+#define ATTR_SET(T, V) rb_hash_aset(attr_regs, ID2SYM(rb_intern(T)), STR_NEW2(V));
+#define ATTR_INC(T)        red_inc(attr_regs, ID2SYM(rb_intern(T)));
 #define INC(N)         N++;
 #define SET_ATTRIBUTES() \
   SET_ATTRIBUTE("class_buf", "class"); \
   SET_ATTRIBUTE("id_buf", "id"); \
   SET_ATTRIBUTE("lang_buf", "lang"); \
-  SET_ATTRIBUTE("style_buf", "style");
+  SET_ATTRIBUTE("style_buf", "style"); \
+  rb_funcall(regs, rb_intern("merge!"), 1, attr_regs); \
+  attr_regs = rb_hash_new();
 #define SET_ATTRIBUTE(B, A) \
   if (rb_hash_aref(regs, ID2SYM(rb_intern(B))) != Qnil) rb_hash_aset(regs, ID2SYM(rb_intern(A)), rb_hash_aref(regs, ID2SYM(rb_intern(B))));
 #define TRANSFORM(T) \
@@ -129,6 +133,15 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
     rb_hash_aset(regs, ID2SYM(rb_intern(T)), Qnil); \
   }
 #define BBCODE_ENABLED() rb_funcall(self, rb_intern("bbcode"), 0) == Qtrue
+#define STORE_ATTR(T)  \
+  if (p > attr_reg && attr_reg >= ts) { \
+    VALUE str = STR_NEW(attr_reg, p-attr_reg); \
+    rb_hash_aset(attr_regs, ID2SYM(rb_intern(T)), str); \
+    /*printf("STORE_B(" T ") '%s' (p:'%s' reg:'%s')\n", RSTRING_PTR(str), p, reg);*/  \
+  } else { \
+    rb_hash_aset(attr_regs, ID2SYM(rb_intern(T)), Qnil); \
+  }
+
 #define STORE_URL(T) \
   if (p > reg && reg >= ts) { \
     char punct = 1; \
