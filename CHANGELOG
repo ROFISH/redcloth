@@ -2,6 +2,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Enable code signature to capture trailing space when in square brackets. [Jason Garber]
 
 * Allow emphasized phrases to include underscores. [Jason Garber]
@@ -14,6 +15,10 @@
 
 =======
 >>>>>>> 1a45c0c... Change to list attributes so you can give style/class to list items (taken from PyTextile).  Breaks backwards compatibility.
+=======
+* Don't add hard break after preexisting <br />. [Jason Garber]
+
+>>>>>>> 56bd020... Don't add hard break after preexisting <br />. [#130 state:resolved]
 * Change to list attributes so you can give style/class to list items (taken from PyTextile).  Breaks backwards compatibility.
   
   Before, the style applied to the first list item applied to the entire list.  Now, class/id/style placed
