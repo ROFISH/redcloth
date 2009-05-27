@@ -11,7 +11,7 @@
   action bb_failed4html { rb_str_append(block,failed_start); rb_str_append(block,rb_funcall(self, rb_intern("escape"), 1, html)); fgoto main; }
 
   # blocks
-  notextile_tag = notextile (LF | EOF) ;
+  notextile_tag = notextile (LF+ | EOF) ;
   noparagraph_line_start = " "+ ;
   notextile_block_start = ( "notextile" >A %{ STORE("type"); } A C :> "." ( "." %extend | "" ) " "+ ) %SET_ATTR ;
   pre_tag_start = "<pre" [^>]* ">" (space* code_tag_start)? ;
@@ -248,7 +248,7 @@
     bb_spoiler_tag_start { rb_str_append(failed_start,STR_NEW(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_title = 0; fgoto bb_spoiler_tag; };
     
     noparagraph_line_start  { UNLESS_DISABLED_BLOCK(block,noparagraph_line_start,ASET("type", "ignored_line"); fgoto noparagraph_line;) };
-    notextile_tag   { INLINE(block, "notextile"); };
+    notextile_tag   { INLINE(html, "notextile"); };
     notextile_block_start { ASET("type", "notextile"); fgoto notextile_block; };
     script_tag_start { CAT(block); fgoto script_tag; };
     pre_tag_start       { ASET("type", "notextile"); CAT(block); fgoto pre_tag; };
