@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 * Enable code signature to capture trailing space when in square brackets. [Jason Garber]
 
 * Allow emphasized phrases to include underscores. [Jason Garber]
@@ -18,6 +19,10 @@
 >>>>>>> 1a45c0c... Change to list attributes so you can give style/class to list items (taken from PyTextile).  Breaks backwards compatibility.
 =======
 =======
+=======
+* Include an ending question mark in a citation. [Jason Garber]
+
+>>>>>>> 9a4c377... Include an ending question mark in a citation. [#109 state:resolved]
 * Preserve leading whitespace in pre and bc blocks. [Jason Garber]
 
 >>>>>>> a9d5f73... Preserve leading whitespace in pre and bc blocks. [#129 state:resolved]

@@ -1007,6 +1007,16 @@ html: |-
   <pre><code>  false
   } else {</code></pre>
 ---
+name: citation ending with question mark
+in: "??What the Story Morning Glory???"
+html: |-
+  <p><cite>What the Story Morning Glory?</cite></p>
+---
+name: citation including question mark
+in: "??What's the Matter with Kansas? How Conservatives Won the Heart of America?? is a great book!"
+html: |-
+  <p><cite>What&#8217;s the Matter with Kansas? How Conservatives Won the Heart of America</cite> is a great book!</p>
+---
 name: code captures spaces when made explicit with square brackets
 in: "Start a paragraph with [@p. @] (that's p, a period, and a space)."
 html: "<p>Start a paragraph with <code>p. </code> (that&#8217;s p, a period, and a space).</p>"
