@@ -1,6 +1,9 @@
 === Edge
 
-<<<<<<< HEAD
+* Pass string encoding through in Ruby 1.9. [Jason Garber]
+
+* Allow two-letter acronyms. [Jason Garber]
+
 * Removed vertical alignment in lists. It doesn't make sense and it conflicts with other things. [Jason Garber]
 
 * Allow table cells to be empty. [Jason Garber]
@@ -52,8 +55,6 @@
 
 * Make compatible with Ruby 1.9.
 
-=======
->>>>>>> f6306a1... Fix image URLs and image titles so they can contain parentheses. [#71 state:resolved]
 * Image URLs and image titles can now contain parentheses. #71
 
 * Handle caps properly in link titles. #77
