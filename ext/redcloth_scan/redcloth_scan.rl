@@ -84,6 +84,9 @@
   bb_spoiler_tag_start = ("[spoiler" bb_spoiler_tag_title? "]") ;
   bb_spoiler_tag_end =  "[/spoiler]" LF? ;
 
+  # special finds
+  youtube_uri = "http" "s"? "://www.youtube.com/watch?v=" >X (default - space - "]" - "[" - "&")+ >A %{STORE("youtubeid")} ("&fmt=" (default - space - "]" - "[" - "&")+ >A %{STORE("youtubefmt")})?;
+
   # info
   redcloth_version = ("RedCloth" >A ("::" | " " ) "VERSION"i ":"? " ")? %{STORE("prefix");} "RedCloth::VERSION" (LF* EOF | double_return) ;
 
@@ -403,6 +406,8 @@
     #link_alias      { UNLESS_DISABLED_INLINE(block,link_alias,STORE_LINK_ALIAS(); DONE(block);) };
     aligned_image   { RESET_TYPE(); fgoto block; };
     redcloth_version { INLINE(html, "redcloth_version"); };
+    youtube_uri     { INLINE(html,"youtube"); };
+
     blank_line => cat;
     default
     { 

@@ -1,3 +1,7 @@
+require 'net/http'
+require 'URI'
+require 'rexml/document'
+
 module RedCloth::Formatters::HTML
   include RedCloth::Formatters::Base
   
@@ -320,6 +324,38 @@ module RedCloth::Formatters::HTML
   
   def html(opts)
     "#{opts[:text]}\n"
+  end
+  
+  def youtube(opts)
+    #gdata.youtube.com/feeds/api/videos/Gkwhxh5txJ0
+    
+    begin
+      url = URI.parse("http://gdata.youtube.com/feeds/api/videos/#{opts[:youtubeid]}")
+      req = Net::HTTP::Get.new(url.path)
+      res = Net::HTTP.start(url.host, url.port) {|http|
+        http.request(req)
+      }
+      d = REXML::Document.new(res.body)
+      title = d.elements["entry/title"].text
+      case opts[:youtubefmt]
+        when "22"
+          width = 720
+          height = 405
+        when "18"
+          width = 480
+          height = 320
+        when "6"
+          width = 480
+          height = 320
+        else
+          width = 320
+          height = 240
+      end
+      out = "<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=#{opts[:youtubeid]}#{"&fmt=#{opts[:youtubefmt]}" if opts[:youtubefmt]}\">#{title}</a></div><div class=\"youtube_video\"><object width=\"#{width}\" height=\"#{height}\"><param name=\"movie\" value=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"#{width}\" height=\"#{height}\"></embed></object></div></div>\n"
+    rescue
+      out = "<a href=\"http://www.youtube.com/watch?v=#{opts[:youtubeid]}\">http://www.youtube.com/watch?v=#{opts[:youtubeid]}</a>"
+    end
+    out
   end
   
   def html_block(opts)

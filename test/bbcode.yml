@@ -596,3 +596,12 @@ bbcode_only: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" />
 name: shouldn't infinite loop
 in: "[quote=1310865;Chatterb0x:]I'm pretty sure I've posted this before, but as far as God and science commingling, it is a necessity. Why? Science is an absolute system. We are able to observe, repeat, and falsify because God's creation is orderly and upheld by His power. Secular worldviews cannot account for this. Motu, you hypothesized a universe that is orderly without God. This may be fine but what's important important to note is that such a statement is unscientific because it can never meet the above criteria (neither can God's special creation).[quote]"
 bbcode: dfssd
+---
+name: YouTube video should have object/flash code
+in: |-
+  TestTestTest
+  
+  http://www.youtube.com/watch?v=Gkwhxh5txJ0&fmt=22
+  
+  testestestste        
+bbcode: "<p>TestTestTest</p>\n<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=Gkwhxh5txJ0&fmt=22\">Final Fantasy IV Strange Ostrich Japan Ad 2</a></div><div class=\"youtube_video\"><object width=\"720\" height=\"405\"><param name=\"movie\" value=\"http://www.youtube.com/v/Gkwhxh5txJ0&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/Gkwhxh5txJ0&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"720\" height=\"405\"></embed></object></div></div>\n<p>testestestste</p>"
