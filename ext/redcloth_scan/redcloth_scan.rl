@@ -86,6 +86,7 @@
 
   # special finds
   youtube_uri = "http" "s"? "://www.youtube.com/watch?v=" >X (default - space - "]" - "[" - "&")+ >A %{STORE("youtubeid")} ("&fmt=" (default - space - "]" - "[" - "&")+ >A %{STORE("youtubefmt")})?;
+  vimeo_uri   = "http" "s"? "://vimeo.com/" >X (default - space - "]" - "[" - "&")+ >A %{STORE("vimeoid")};
 
   # info
   redcloth_version = ("RedCloth" >A ("::" | " " ) "VERSION"i ":"? " ")? %{STORE("prefix");} "RedCloth::VERSION" (LF* EOF | double_return) ;
@@ -407,6 +408,7 @@
     aligned_image   { RESET_TYPE(); fgoto block; };
     redcloth_version { INLINE(html, "redcloth_version"); };
     youtube_uri     { INLINE(html,"youtube"); };
+    vimeo_uri     { INLINE(html,"vimeo"); };
 
     blank_line => cat;
     default
