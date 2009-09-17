@@ -1,6 +1,14 @@
-require 'net/http'
-require 'URI'
-require 'rexml/document'
+unless defined?(NET::HTTP)
+  require 'net/http'
+end
+
+unless defined?(URI)
+  require 'URI'
+end
+
+unless defined?(REXML::Document)
+  require 'rexml/document'
+end
 
 module RedCloth::Formatters::HTML
   include RedCloth::Formatters::Base

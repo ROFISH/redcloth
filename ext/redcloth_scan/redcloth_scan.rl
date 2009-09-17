@@ -323,10 +323,12 @@
       //printf("bb_quote_tag_start");
       if (IS_NOT_EXTENDED()) { 
         ADD_BLOCK(); 
+        failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te;
         fgoto bb_quote_tag; 
       } else { 
         ADD_EXTENDED_BLOCK();
         END_EXTENDED(); 
+        failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te;
         fgoto bb_quote_tag;
       }
     };

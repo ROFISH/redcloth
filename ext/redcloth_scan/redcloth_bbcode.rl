@@ -94,6 +94,7 @@
       rb_str_append(html, rb_funcall(self, rb_intern("p"), 1, regs));
       CLEAR(block); 
       CLEAR_REGS()
+      failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te;
       fgoto bb_quote_tag;
     };
     automatic_url { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
