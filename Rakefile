@@ -51,9 +51,9 @@ e = Echoe.new('BBRedCloth', RedCloth::VERSION.to_s) do |p|
   p.ruby_version = '>=1.8.4'
   p.extension_pattern = nil
   
-  if Platform.gcc?
+  if Echoe::Platform.gcc?
     p.platform = 'x86-mswin32-60'
-  elsif Platform.java?
+  elsif Echoe::Platform.java?
     p.platform = 'universal-java'
   end
   
