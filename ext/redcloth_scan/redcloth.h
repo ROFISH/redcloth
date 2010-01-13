@@ -151,7 +151,7 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
         case ')': \
           { /*needed to keep inside chars scoped for less memory usage*/\
             char *temp_p = p - 1; \
-            char level = -1; \
+            signed char level = -1; \
             while (temp_p > reg) { \
               switch(*(temp_p - 1)) { \
                 case '(': ++level; break; \
