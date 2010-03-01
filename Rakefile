@@ -1,6 +1,6 @@
 require './lib/redcloth/version'
 require 'rubygems'
-gem 'echoe', '>= 3.0.1'
+gem 'echoe', '>= 4.1'
 require 'echoe'
 
 # Platform missing from Echoe >= 3.2?
