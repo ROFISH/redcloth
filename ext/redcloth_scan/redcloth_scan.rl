@@ -85,8 +85,8 @@
   bb_spoiler_tag_end =  "[/spoiler]" LF? ;
 
   # special finds
-  youtube_uri = "http" "s"? "://www.youtube.com/watch?v=" >X (default - space - "]" - "[" - "&")+ >A %{STORE("youtubeid")} ("&fmt=" (default - space - "]" - "[" - "&")+ >A %{STORE("youtubefmt")})?;
-  vimeo_uri   = "http" "s"? "://vimeo.com/" >X (default - space - "]" - "[" - "&")+ >A %{STORE("vimeoid")};
+  youtube_uri = "http" "s"? "://www.youtube.com/watch?v=" >X (default - space - "]" - "[" - "&")+ >A %{STORE("youtubeid")} ("&feature" (default - space - "]" - "[" - "&" - LF)+)? ("&fmt=" (default - space - "]" - "[" - "&")+ >A %{STORE("youtubefmt")})? ("&" (default - space - "]" - "[" - "&" - LF)+)*;
+  vimeo_uri   = "http" "s"? "://vimeo.com/" >X digit+ >A %{STORE("vimeoid")};
 
   # info
   redcloth_version = ("RedCloth" >A ("::" | " " ) "VERSION"i ":"? " ")? %{STORE("prefix");} "RedCloth::VERSION" (LF* EOF | double_return) ;

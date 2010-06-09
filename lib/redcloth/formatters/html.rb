@@ -345,24 +345,26 @@ module RedCloth::Formatters::HTML
       }
       d = REXML::Document.new(res.body)
       title = d.elements["entry/title"].text
-      case opts[:youtubefmt]
-        when "22"
-          width = 720
-          height = 405
-        when "18"
-          width = 480
-          height = 320
-        when "6"
-          width = 480
-          height = 320
-        else
-          width = 320
-          height = 240
-      end
-      out = "<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=#{opts[:youtubeid]}#{"&fmt=#{opts[:youtubefmt]}" if opts[:youtubefmt]}\">#{title}</a></div><div class=\"youtube_video\"><object width=\"#{width}\" height=\"#{height}\"><param name=\"movie\" value=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"#{width}\" height=\"#{height}\"></embed></object></div></div>\n"
     rescue
-      out = "ERROR WITH YOUTUBE API! VIDEO DOES NOT EXIST? VIDEO NOT ALLOWED TO EMBED?"
+      title = "http://www.youtube.com/watch?v=#{opts[:youtubeid]}"
     end
+    
+    case opts[:youtubefmt]
+      when "22"
+        width = 700
+        height = 395
+      when "18"
+        width = 480
+        height = 320
+      when "6"
+        width = 480
+        height = 320
+      else
+        width = 320
+        height = 240
+    end
+    
+    out = "<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=#{opts[:youtubeid]}#{"&fmt=#{opts[:youtubefmt]}" if opts[:youtubefmt]}\">#{title}</a></div><div class=\"youtube_video\"><object width=\"#{width}\" height=\"#{height}\"><param name=\"movie\" value=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"#{width}\" height=\"#{height}\"></embed></object></div></div>\n"
     out
   end
   
