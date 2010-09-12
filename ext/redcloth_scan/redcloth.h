@@ -8,6 +8,12 @@
 #ifndef RSTRING_PTR
 #define RSTRING_PTR(x) (RSTRING(x)->ptr)
 #endif
+#ifndef RARRAY_LEN
+#define RARRAY_LEN(x) (RARRAY(x)->len)
+#endif
+#ifndef RARRAY_PTR
+#define RARRAY_PTR(x) (RARRAY(x)->ptr)
+#endif
 
 /* variable defs */
 #ifndef redcloth_scan_c
@@ -143,7 +149,7 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
     { \
       rb_ary_store(list_index, nest-1, INT2NUM(aint + 1)); \
     } \
-    if (nest > RARRAY(list_layout)->len) \
+    if (nest > RARRAY_LEN(list_layout)) \
     { \
       sprintf(listm, "%s_open", list_type); \
       if (list_continue == 1) \
@@ -171,12 +177,12 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
       ASET("first", "true"); \
     } \
     LIST_CLOSE(); \
-    rb_hash_aset(regs, ID2SYM(rb_intern("nest")), INT2NUM(RARRAY(list_layout)->len)); \
+    rb_hash_aset(regs, ID2SYM(rb_intern("nest")), INT2NUM(RARRAY_LEN(list_layout))); \
     ASET("type", "li_open")
 #define LIST_CLOSE() \
-    while (nest < RARRAY(list_layout)->len) \
+    while (nest < RARRAY_LEN(list_layout)) \
     { \
-      rb_hash_aset(regs, ID2SYM(rb_intern("nest")), INT2NUM(RARRAY(list_layout)->len)); \
+      rb_hash_aset(regs, ID2SYM(rb_intern("nest")), INT2NUM(RARRAY_LEN(list_layout))); \
       VALUE end_list = rb_ary_pop(list_layout); \
       if (!NIL_P(end_list)) \
       { \

@@ -1,4 +1,4 @@
-require 'lib/redcloth/version'
+require './lib/redcloth/version'
 require 'rubygems'
 gem 'echoe', '>= 3.0.1'
 require 'echoe'
