@@ -57,21 +57,21 @@
   *|;
   
   bbcode_inline := |*
-    bb_b   { PASS(block, "text", "strong"); };
-    bb_i   { PASS(block, "text", "em"); };
-    bb_u   { PASS(block, "text", "ins"); };
-    bb_s   { PASS(block, "text", "del"); };
-    bb_del { PASS(block, "text", "del"); };
-    bb_ins { PASS(block, "text", "ins"); };
-    bb_sub { PASS(block, "text", "sub"); };
-    bb_sup { PASS(block, "text", "sup"); };
+    bb_b   { UNLESS_DISABLED_INLINE(block,strong,PASS(block, "text", "strong");) };
+    bb_i   { UNLESS_DISABLED_INLINE(block,em,PASS(block, "text", "em");) };
+    bb_u   { UNLESS_DISABLED_INLINE(block,ins,PASS(block, "text", "ins");) };
+    bb_s   { UNLESS_DISABLED_INLINE(block,s,PASS(block, "text", "del");) };
+    bb_del { UNLESS_DISABLED_INLINE(block,del,PASS(block, "text", "del");) };
+    bb_ins { UNLESS_DISABLED_INLINE(block,ins,PASS(block, "text", "ins");) };
+    bb_sub { UNLESS_DISABLED_INLINE(block,sub,PASS(block, "text", "sub");) };
+    bb_sup { UNLESS_DISABLED_INLINE(block,sup,PASS(block, "text", "sup");) };
     bb_notextile => ignore;
-    bb_color   { PASS(block, "text", "color"); };
-    bb_size    { PASS(block, "text", "bbsize"); };
-    bb_align   { PASS(block, "text", "bbalign"); };
-    bb_acronym { PASS(block, "text", "acronym"); };
-    bb_link    { PASS(block, "name", "link"); };
-    bb_link2   { PASS(block, "name", "link"); };
+    bb_color   { UNLESS_DISABLED_INLINE(block,color,PASS(block, "text", "color");) };
+    bb_size    { UNLESS_DISABLED_INLINE(block,size,PASS(block, "text", "bbsize");) };
+    bb_align   { UNLESS_DISABLED_INLINE(block,align,PASS(block, "text", "bbalign");) };
+    bb_acronym { UNLESS_DISABLED_INLINE(block,acronym,PASS(block, "text", "acronym");) };
+    bb_link    { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
+    bb_link2   { UNLESS_DISABLED_INLINE(block,link,PASS(block, "name", "link");) };
     bb_img     { UNLESS_DISABLED_INLINE(block,image,PASS(block, "name", "image");); };
     bb_img2    { UNLESS_DISABLED_INLINE(block,image,PASS(block, "name", "image");); };
     bb_spoiler { PASS(block, "name", "bb_spoiler"); CLEAR_REGS();};

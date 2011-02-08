@@ -14,10 +14,10 @@
   EOF = 0 ;
 
   # textile modifiers
-  A_LEFT = "<" %{ ASET("align", "left"); } ;
-  A_RIGHT = ">" %{ ASET("align", "right"); } ;
-  A_JUSTIFIED = "<>" %{ ASET("align", "justify"); } ;
-  A_CENTER = "=" %{ ASET("align", "center"); } ;
+  A_LEFT = "<" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("align", "left");) } ;
+  A_RIGHT = ">" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("align", "right");) } ;
+  A_JUSTIFIED = "<>" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("align", "justify");) } ;
+  A_CENTER = "=" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("align", "center");) } ;
   A_PADLEFT = "(" >A %{ AINC("padding-left"); } ;
   A_PADRIGHT = ")" >A %{ AINC("padding-right"); } ;
   A_HLGN = ( A_LEFT | A_RIGHT | A_JUSTIFIED | A_CENTER | A_PADLEFT | A_PADRIGHT ) ;

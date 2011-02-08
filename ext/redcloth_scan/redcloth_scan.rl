@@ -43,8 +43,8 @@
   horizontal_rule = '*'{3,} | '-'{3,} | '_'{3,} ;
   
   # image lookahead
-  IMG_A_LEFT = "<" %{ ASET("float", "left"); } ;
-  IMG_A_RIGHT = ">" %{ ASET("float", "right"); } ;
+  IMG_A_LEFT = "<" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("float", "left");) } ;
+  IMG_A_RIGHT = ">" %{ UNLESS_DISABLED_ATTRIBUTE(align,ASET("float", "right");) } ;
   aligned_image = ( "["? "!" (IMG_A_LEFT | IMG_A_RIGHT) ) >A @{ p = reg - 1; } ;
   
   # html blocks

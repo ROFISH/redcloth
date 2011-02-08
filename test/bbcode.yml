@@ -636,3 +636,11 @@ in: |-
 
   testestestste        
 bbcode: "<p>TestTestTest</p>\n<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=Gkwhxh5txJ0&fmt=22\">Final Fantasy IV Strange Ostrich Japan Ad 2</a></div><div class=\"youtube_video\"><object width=\"700\" height=\"395\"><param name=\"movie\" value=\"http://www.youtube.com/v/Gkwhxh5txJ0&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/Gkwhxh5txJ0&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"700\" height=\"395\"></embed></object></div></div>\n<p>testestestste</p>"
+---
+name: Strikethroughed and Bolded
+in: "*_omgheh_*"
+general_disable_inline: "<p>*<em>omgheh</em>*</p>"
+---
+name: Strikethroughed and Bolded2
+in: "_*omgheh*_"
+general_disable_inline: "<p><em>*omgheh*</em></p>"

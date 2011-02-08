@@ -1,7 +1,7 @@
 ---
 in: '*this <span></span> is strong*'
 html: '<p><strong>this <span></span> is strong</strong></p>'
-general_disable_inline: '<p>*this &lt;span&gt;&lt;/span&gt; is strong*</p>'
+general_disable_inline: '<p>*this <span></span> is strong*</p>'
 ---
 in: '*this <span>test</span> is strong*'
 html: '<p><strong>this <span>test</span> is strong</strong></p>'

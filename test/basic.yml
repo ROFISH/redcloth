@@ -390,6 +390,7 @@ name: align justified
 desc: Text inside blocks can be aligned in four basic ways.
 in: p<>. justified
 html: <p style="text-align:justify;">justified</p>
+general_disable_inline: <p>justified</p>
 --- 
 name: indentation
 desc: Indentation can also be specified by provide a single left paren for every 1em to the left.  A single right paren for every 1em to the right.
@@ -564,6 +565,10 @@ html: |-
   <p style="float:right;"><img src="obake.gif" alt="" /></p>
   <p>And others sat all round the small<br />
   machine and paid it to sing to them.</p>
+general_disable_inline:  |-
+   <p><img src="obake.gif" alt="" /></p>
+   <p>And others sat all round the small<br />
+   machine and paid it to sing to them.</p>
 --- 
 name: acronym definitions
 desc: Definitions for acronyms can be provided by following an acronym with its definition in parens.

@@ -31,7 +31,29 @@ red_pass(VALUE self, VALUE regs, VALUE ref, ID meth, VALUE refs)
       rb_hash_aset(regs, ref, redcloth_inline2(self, txt, refs));
     }
   }
+  VALUE test = rb_funcall(regs,rb_intern("inspect"),0);
+  //printf("red_pass()  '%s'\n", RSTRING(test)->ptr);
+  //printf("red_pass()2 '%s'\n", RSTRING(rb_funcall(self, meth, 1, regs))->ptr);
   return rb_funcall(self, meth, 1, regs);
+}
+
+VALUE
+red_passthrough(VALUE self, char *ts, char *te, VALUE refs)
+{
+  VALUE ret = rb_str_new(ts,1);
+  VALUE txt = rb_str_new(ts+1,te-ts-2);
+
+  if (!NIL_P(txt)) {
+    //printf("red_passthrough() '%s'\n", RSTRING(txt)->ptr);
+    if (rb_funcall(self, rb_intern("bbcode_only"), 0) == Qtrue){
+      rb_str_append(ret,redcloth_bbcode_inline2(self, txt, refs));
+    }
+    else {
+      rb_str_append(ret,redcloth_inline2(self, txt, refs));
+    }
+  }
+  rb_str_cat(ret,te-1,1);
+  return ret;
 }
 
 VALUE

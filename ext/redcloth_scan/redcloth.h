@@ -36,6 +36,7 @@ void red_inc(VALUE, VALUE);
 VALUE red_block(VALUE, VALUE, VALUE, VALUE);
 VALUE red_blockcode(VALUE, VALUE, VALUE);
 VALUE red_pass(VALUE, VALUE, VALUE, ID, VALUE);
+VALUE red_passthrough(VALUE self, char *ts, char *te, VALUE refs);
 VALUE red_pass_code(VALUE, VALUE, VALUE, ID);
 VALUE redcloth_bbcode(VALUE, char *, char *, VALUE);
 VALUE redcloth_bbcode2(VALUE, VALUE, VALUE);
@@ -45,8 +46,10 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 /* parser macros */
 #define CALL_STACK_SIZE 20
 #define UNLESS_DISABLED_INLINE(H, T, F) \
-  if (rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { rb_str_cat_escaped(self, H, ts, te); } \
-  else { F }
+  if (rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { rb_str_append(H,red_passthrough(self, ts, te, refs)); } \
+  else {   /*VALUE test = rb_str_new(ts,te-ts); printf("\nred_passthrough_else() '%s'\n", RSTRING(test)->ptr);*/ F }
+#define UNLESS_DISABLED_ATTRIBUTE(T, F) \
+  if (!(rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue)) { F } //if !(rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { F }
 #define CLEAR_REGS()   regs = rb_hash_new();
 #define RESET_REG()    reg = NULL
 #define CAT(H)         rb_str_cat(H, ts, te-ts)
