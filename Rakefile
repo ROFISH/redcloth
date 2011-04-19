@@ -39,14 +39,14 @@ module Platform
   end
 end
 
-e = Echoe.new('RedCloth', RedCloth::VERSION.to_s) do |p|
+e = Echoe.new('BBRedCloth', RedCloth::VERSION.to_s) do |p|
   p.summary = RedCloth::DESCRIPTION
-  p.author = "Jason Garber"
-  p.email = 'redcloth-upwards@rubyforge.org'
+  p.author = "Ryan Alyea"
+  p.email = 'ryan@fangamer.com'
   p.clean_pattern += ['ext/redcloth_scan/**/*.{bundle,so,obj,pdb,lib,def,exp,c,o,xml,class,jar,java}', 'lib/*.{bundle,so,o,obj,pdb,lib,def,exp,jar}', 'ext/redcloth_scan/Makefile']
   p.url = "http://redcloth.org"
-  p.project = "redcloth"
-  p.rdoc_pattern = ['README', 'COPING', 'CHANGELOG', 'lib/**/*.rb', 'doc/**/*.rdoc']
+  p.project = "bbredcloth"
+  p.rdoc_pattern = ['README.textile', 'COPING', 'CHANGELOG', 'lib/**/*.rb', 'doc/**/*.rdoc']
   p.ignore_pattern = /^(pkg|site|projects|doc|log)|CVS|\.log/
   p.ruby_version = '>=1.8.4'
   p.extension_pattern = nil

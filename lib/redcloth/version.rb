@@ -1,7 +1,7 @@
 module RedCloth
   module VERSION
-    MAJOR = 4
-    MINOR = 1
+    MAJOR = 0
+    MINOR = 8
     TINY  = 1
     RELEASE_CANDIDATE = nil
 
@@ -20,9 +20,9 @@ module RedCloth
     end
   end
   
-  NAME = "RedCloth"
+  NAME = "BBRedCloth"
   GEM_NAME = NAME
   URL  = "http://redcloth.org/"
 
-  DESCRIPTION = "#{NAME}-#{VERSION::FULL_VERSION} - Textile parser for Ruby.\n#{URL}"
+  DESCRIPTION = "#{NAME}-#{VERSION::FULL_VERSION} - Textile parser for Ruby. Includes BBCode additions.\n#{URL}"
 end

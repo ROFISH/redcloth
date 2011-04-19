@@ -1,0 +1,149 @@
+h1. BBRedCloth - BBCode/Textile parser for Ruby
+
+Homepage::  http://redcloth.org
+Authors::   Jason Garber
+            Ryan Alyea
+Copyright:: (c) 2008 Jason Garber
+            (c) 2009 Ryan Alyea
+License::   MIT
+
+(See http://redcloth.org/textile/ for a Textile reference.)
+
+h2. BBRedCloth
+
+BBRedCloth is a Ruby library for converting Textile into HTML. While fundamentally based on RedCloth, it also contains the ability to convert 
+
+h2. Installing
+
+RedCloth can be installed via RubyGems:
+
+<pre>
+gem install BBRedCloth
+</pre>
+
+It will install the appropriate Ruby gem. JRuby is not supported, nor is the pure-Ruby version.
+
+If you wish to use BBRedCloth in your Rails 3 project, just add the following to your Gemfile:
+
+<pre>
+gem 'BBRedCloth', :require=>"RedCloth"
+</pre>
+
+== Compiling
+
+If you just want to use BBRedCloth, you do NOT need to build/compile it.  It is compiled from C sources automatically when you install the gem on the ruby platform.
+
+BBRedCloth can be compiled with <tt>rake compile</tt>.  Ragel 6.3 or greater and the echoe gem (3.1.1) are needed to build, compile, and package RedCloth.  Again, Ragel and echoe are NOT needed to simply use RedCloth.
+
+== Using BBRedCloth
+
+BBRedCloth was designed to be mostly drop-in compatible with RedCloth. In fact, it still retains the RedCloth class. However, this makes running BBRedCloth and a newer RedCloth impossible for now.
+
+If you wish to use the general RedCloth/Textile mode with this gem, just do as you normally do!
+
+<pre>
+require 'rubygems'
+gem 'BBRedCloth'
+require 'RedCloth'
+text = "This is *my* text."
+RedCloth.new(text).to_html
+#=> "<p>This is <strong>my</strong> text.</p>"
+</pre>
+
+h3. BBCode
+
+Because of the drop-in feature, new features must be activated. Just put options in an array after the text. For example:
+
+<pre>
+require 'rubygems'
+gem 'BBRedCloth'
+require 'RedCloth'
+text = "This is *Textile* and [b]BBCode[/b] combined!"
+RedCloth.new(text,[:bbcode]).to_html
+#=> "<p>This is <strong>Textile</strong> and <strong>BBCode</strong> combined!</p>"
+</pre>
+
+h3. Filters
+
+Most of RedCloth's options are supported such as :filter_html :
+
+<pre>
+require 'rubygems'
+gem 'BBRedCloth'
+require 'RedCloth'
+text = "This *Textile* and [b]BBCode[/b] and <b>HTML</b> combined!"
+RedCloth.new(text,[:bbcode]).to_html
+RedCloth.new(text,[:filter_html,:bbcode]).to_html
+#=> "<p>This <strong>Textile</strong> and <strong>BBCode</strong> and <b>HTML</b> combined!</p>"
+#=> "<p>This <strong>Textile</strong> and <strong>BBCode</strong> and &lt;b&gt;HTML&lt;/b&gt; combined!</p>"
+</pre>
+
+h3. Disabling Certain HTML Code
+
+Additionally, you can disable certain HTML features of BBCode and Textile and they are ignored:
+
+<pre>
+require 'rubygems'
+gem 'BBRedCloth'
+require 'RedCloth'
+RedCloth.new( "Images should *not* be allowed! !test_image.jpg!", [:disable_inline=>:image] ).to_html
+#=> "<p>Images should <strong>not</strong> be allowed! !test_image.jpg!</p>"
+</pre>
+
+You can disable the following:
+
+* :image
+* :link
+* :code
+* :notextile
+* :strong
+* :b
+* :em
+* :i
+* :del
+* :ins
+* :sup
+* :sub
+* :span
+* :cite
+* :snip
+* :quote1
+* :quote2
+* :multi_paragraph_quote
+* :link_alias
+
+h3. BBCode-Only
+
+If you want to disable Textile, there is a BBCode-only mode:
+
+<pre>
+require 'rubygems'
+gem 'BBRedCloth'
+require 'RedCloth'
+text = "This is *Textile* and [b]BBCode[/b] combined!"
+RedCloth.new(text,[:bbcode_only]).to_html
+#=> "<p>This is *Textile* and <strong>BBCode</strong> combined!</p>"
+</pre>
+
+h2. BBCode
+
+The following are the tags supported:
+
+* [b]
+* [i]
+* [u]
+* [s]
+* [ins]
+* [del]
+* [sup]
+* [sub]
+* [notextile]
+* [color]
+* [size]
+* [align]
+* [acronym]
+* [url]
+* [img]
+* [pre]
+* [quote]
+* [spoiler]
