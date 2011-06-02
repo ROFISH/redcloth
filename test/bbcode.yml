@@ -644,3 +644,12 @@ general_disable_inline: "<p>*<em>omgheh</em>*</p>"
 name: Strikethroughed and Bolded2
 in: "_*omgheh*_"
 general_disable_inline: "<p><em>*omgheh*</em></p>"
+---
+name: automatic link test
+in: |-
+  !http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png!
+  
+  [img]http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png[/img]
+disable_inline_images: |-
+  <p>!<a href="http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png">http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png</a>!</p>
+  <p>[img]<a href="http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png">http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png</a>[/img]</p>

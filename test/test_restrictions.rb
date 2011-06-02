@@ -39,7 +39,7 @@ class TestRestrictions < Test::Unit::TestCase
   end
   
   generate_formatter_tests('disable_inline_images') do |doc|
-    RedCloth.new(doc['in'], [:disable_inline=>:image]).to_html
+    RedCloth.new(doc['in'], [{:disable_inline=>:image},:bbcode]).to_html
   end
   
   generate_formatter_tests('general_disable_inline') do |doc|

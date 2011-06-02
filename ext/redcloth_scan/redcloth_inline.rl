@@ -89,7 +89,7 @@
   entity = ( "&" %A ( '#' digit+ | ( alpha ( alpha | digit )+ ) ) %T ';' ) >X ;
 
   direct_uri = "http" "s"? "://" uchar+ absolute_path?;
-  automatic_url = direct_uri >X >A %{ STORE_URL("href"); } ;
+  automatic_url = (direct_uri -- '[' -- ']') >X >A %{ STORE_URL("href"); } ;
 
   
   # info
