@@ -653,3 +653,27 @@ in: |-
 disable_inline_images: |-
   <p>!<a href="http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png">http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png</a>!</p>
   <p>[img]<a href="http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png">http://fangamer.com/blog/wp-content/uploads/2010/04/logo_top.png</a>[/img]</p>
+---
+name: url tag spacing 1
+in: "[url=http://wiki.guildwars.com/]foo[b]bar[/b][/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\">foo<strong>bar</strong></a></p>"
+---
+name: url tag spacing 2
+in: "[url=http://wiki.guildwars.com/] foo[b]bar[/b][/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\"> foo<strong>bar</strong></a></p>"
+---
+name: url tag spacing 3
+in: "[url=http://wiki.guildwars.com/]foo[b]bar[/b] [/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\">foo<strong>bar</strong> </a></p>"
+---
+name: url tag spacing 4
+in: "[url=http://wiki.guildwars.com/]foo[b] bar[/b][/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\">foo<strong> bar</strong></a></p>"
+---
+name: url tag spacing 5
+in: "[url=http://wiki.guildwars.com/]foo[b]bar [/b][/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\">foo<strong>bar </strong></a></p>"
+---
+name: url tag spacing 6
+in: "[url=http://wiki.guildwars.com/]foo [b]bar[/b][/url]"
+bbcode: "<p><a href=\"http://wiki.guildwars.com/\">foo <strong>bar</strong></a></p>"

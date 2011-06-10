@@ -10,6 +10,7 @@
   bbchars = (default - space - "]" - "[")+ ;
   bbmtext = ( bbchars (mspace bbchars)* ) ;
   mtext_spaced = ( mspace* chars (mspace chars)* mspace* ) ;
+  bb_uri = (uri -- '[' -- ']') ;
   
   bb_b   = "[b]" >X mtext_spaced >A %T :>> "[/b]" ;
   bb_i   = "[i]" >X mtext_spaced >A %T :>> "[/i]" ;
@@ -28,11 +29,11 @@
   bb_align = ("[align=" >X bb_inneralign >A "]" mtext_spaced >A %T :>> "[/align]")  ;
   bb_acronym = ("[acronym=" >X bbmtext %{ STORE("title"); } >A "]" mtext_spaced >A %T :>> "[/acronym]") ;
   
-  bb_link = "[url]" >X uri %{ STORE("href"); } >A :>> "[/url]" ;
-  bb_link2 = "[url=">X uri %{ STORE("href"); } >A "]" mtext %{ STORE("name"); } >A :>> "[/url]" ;
+  bb_link = "[url]" >X bb_uri %{ STORE("href"); } >A :>> "[/url]" ;
+  bb_link2 = "[url=">X bb_uri %{ STORE("href"); } >A "]" mtext_spaced %{ STORE("name"); } >A :>> "[/url]" ;
   
-  bb_img = "[img]" >X uri %{ STORE("src"); } >A :>> "[/img]" ;
-  bb_img2 = "[img=">X uri %{ STORE("src"); } >A "]" mtext{0,1} %{ STORE("title"); } >A :>> "[/img]" ;
+  bb_img = "[img]" >X bb_uri %{ STORE("src"); } >A :>> "[/img]" ;
+  bb_img2 = "[img=">X bb_uri %{ STORE("src"); } >A "]" mtext_spaced{0,1} %{ STORE("title"); } >A :>> "[/img]" ;
   
   bb_pre_tag_start = "[pre" [^\]]* "]" (space* "[code]")? ;
   bb_pre_tag_end = ("[/code]" space*)? "[/pre]" LF? ;
