@@ -45,6 +45,8 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
 
 /* parser macros */
 #define CALL_STACK_SIZE 20
+#define UNLESS_DISABLED_BLOCK(H, T, F) \
+  if (rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) != Qtrue) { F }
 #define UNLESS_DISABLED_INLINE(H, T, F) \
   if (rb_funcall(rb_funcall(self, rb_intern("disable_inline"), 0),rb_intern("include?"), 1,ID2SYM(rb_intern(#T))) == Qtrue) { rb_str_append(H,red_passthrough(self, ts, te, refs)); } \
   else {   /*VALUE test = rb_str_new(ts,te-ts); printf("\nred_passthrough_else() '%s'\n", RSTRING(test)->ptr);*/ F }

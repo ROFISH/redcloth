@@ -43,7 +43,7 @@ class TestRestrictions < Test::Unit::TestCase
   end
   
   generate_formatter_tests('general_disable_inline') do |doc|
-    RedCloth.new(doc['in'], [:disable_inline=>[:strong,:del,:align]]).to_html
+    RedCloth.new(doc['in'], [:disable_inline=>[:strong,:del,:align,:noparagraph_line_start]]).to_html
   end
   
   generate_formatter_tests('bbcode') do |doc|

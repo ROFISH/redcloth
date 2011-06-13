@@ -390,7 +390,7 @@
     bb_quote_tag_start   { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_cite = 0; fgoto bb_quote_tag; };
     bb_spoiler_tag_start { rb_str_append(failed_start,rb_str_new(ts,te-ts)); failed_start_point_p = p; failed_start_point_ts = ts; failed_start_point_te = te; store_title = 0; fgoto bb_spoiler_tag; };
     
-    noparagraph_line_start  { ASET("type", "ignored_line"); fgoto noparagraph_line; };
+    noparagraph_line_start  { UNLESS_DISABLED_BLOCK(block,noparagraph_line_start,ASET("type", "ignored_line"); fgoto noparagraph_line;) };
     notextile_tag_start { ASET("type", "notextile"); fgoto notextile_tag; };
     notextile_block_start { ASET("type", "notextile"); fgoto notextile_block; };
     script_tag_start { CAT(block); fgoto script_tag; };

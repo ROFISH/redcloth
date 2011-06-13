@@ -111,6 +111,7 @@ You can disable the following:
 * :quote2
 * :multi_paragraph_quote
 * :link_alias
+* :noparagraph_line_start (ie. spaces at the beginning of a paragraph do not render <p> tags.)
 
 h3. BBCode-Only
 
