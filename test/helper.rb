@@ -93,17 +93,17 @@ EOT
   end
   
   
-  module ShowColorCodes
-     def self.included(base)
-       base.class_eval do
-         alias_method :result_without_color_codes, :result unless method_defined?(:result_without_color_codes)
-         alias_method :result, :result_with_color_codes
-       end
-     end
-     def result_with_color_codes(parameters)
-       result_without_color_codes(parameters.collect {|p| p.gsub(/\\e\[(\d+)m/) {"\e[#{$1}m"} })
-     end
-   end
-   Test::Unit::Assertions::AssertionMessage::Template.send(:include, ShowColorCodes)
+  #module ShowColorCodes
+  #   def self.included(base)
+  #     base.class_eval do
+  #       alias_method :result_without_color_codes, :result unless method_defined?(:result_without_color_codes)
+  #       alias_method :result, :result_with_color_codes
+  #     end
+  #   end
+  #   def result_with_color_codes(parameters)
+  #     result_without_color_codes(parameters.collect {|p| p.gsub(/\\e\[(\d+)m/) {"\e[#{$1}m"} })
+  #   end
+   #end
+   #Test::Unit::Assertions::AssertionMessage::Template.send(:include, ShowColorCodes)
 rescue LoadError
 end

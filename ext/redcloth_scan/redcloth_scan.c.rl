@@ -33,9 +33,9 @@ redcloth_transform(self, p, pe, refs)
   char *orig_p = p, *orig_pe = pe;
   int cs, act, nest;
   char *ts = NULL, *te = NULL, *reg = NULL, *bck = NULL, *eof = NULL;
-  VALUE html = rb_str_new2("");
-  VALUE table = rb_str_new2("");
-  VALUE block = rb_str_new2("");
+  VALUE html = STR_NEW2("");
+  VALUE table = STR_NEW2("");
+  VALUE block = STR_NEW2("");
   VALUE regs; CLEAR_REGS()
   
   
@@ -48,7 +48,7 @@ redcloth_transform(self, p, pe, refs)
   char listm[10] = "";
   VALUE refs_found = rb_hash_new();
   
-  VALUE failed_start = rb_str_new2("");
+  VALUE failed_start = STR_NEW2("");
   char *failed_start_point_p = NULL, *failed_start_point_ts = NULL, *failed_start_point_te = NULL;
   int nested_quote = 0, nested_spoiler = 0, store_cite = 1, store_title = 1;
   
@@ -88,7 +88,7 @@ redcloth_html_esc(int argc, VALUE* argv, VALUE self) //(self, str, level)
   
   rb_scan_args(argc, argv, "11", &str, &level);
   
-  VALUE new_str = rb_str_new2("");
+  VALUE new_str = STR_NEW2("");
   if (str == Qnil)
     return new_str;
     
@@ -146,7 +146,7 @@ redcloth_html_esc(int argc, VALUE* argv, VALUE self) //(self, str, level)
 static VALUE
 redcloth_latex_esc(VALUE self, VALUE str)
 {  
-  VALUE new_str = rb_str_new2("");
+  VALUE new_str = STR_NEW2("");
   
   if (str == Qnil)
     return new_str;
@@ -185,7 +185,7 @@ redcloth_latex_esc(VALUE self, VALUE str)
       if (t2 > t)
         rb_str_cat(new_str, t, t2-t);
       VALUE opts = rb_hash_new();
-      rb_hash_aset(opts, ID2SYM(rb_intern("text")), rb_str_new2(ch));
+      rb_hash_aset(opts, ID2SYM(rb_intern("text")), STR_NEW2(ch));
       rb_str_concat(new_str, rb_funcall(self, rb_intern("entity"), 1, opts));
       t = t2 + 1;
     }
@@ -208,7 +208,7 @@ redcloth_to(self, formatter)
   char *pe, *p;
   int len = 0;
   
-  rb_funcall(self, rb_intern("delete!"), 1, rb_str_new2("\r"));
+  rb_funcall(self, rb_intern("delete!"), 1, STR_NEW2("\r"));
   VALUE working_copy = rb_obj_clone(self);
   rb_extend_object(working_copy, formatter);
   if (rb_funcall(working_copy, rb_intern("bbcode_only"), 0) == Qtrue) {

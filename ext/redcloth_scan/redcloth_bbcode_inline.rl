@@ -77,7 +77,7 @@
     bb_img2    { UNLESS_DISABLED_INLINE(block,image,PASS(block, "name", "image");); };
     bb_spoiler { PASS(block, "name", "bb_spoiler"); CLEAR_REGS();};
     
-    bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,rb_str_new(ts,te-ts)); fgoto bb_inline_pre_tag; };
+    bb_pre_tag_start     { ASET("type", "notextile"); rb_str_append(failed_start,STR_NEW(ts,te-ts)); fgoto bb_inline_pre_tag; };
     nl => { fhold; fret; };
     default => { CAT(block); fret;};
   *|;

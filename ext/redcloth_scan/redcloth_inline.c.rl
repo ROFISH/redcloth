@@ -40,8 +40,8 @@ red_pass(VALUE self, VALUE regs, VALUE ref, ID meth, VALUE refs)
 VALUE
 red_passthrough(VALUE self, char *ts, char *te, VALUE refs)
 {
-  VALUE ret = rb_str_new(ts,1);
-  VALUE txt = rb_str_new(ts+1,te-ts-2);
+  VALUE ret = STR_NEW(ts,1);
+  VALUE txt = STR_NEW(ts+1,te-ts-2);
 
   if (!NIL_P(txt)) {
     //printf("red_passthrough() '%s'\n", RSTRING(txt)->ptr);
@@ -77,7 +77,7 @@ red_pass_code(VALUE self, VALUE regs, VALUE ref, ID meth)
 {
   VALUE txt = rb_hash_aref(regs, ref);
   if (!NIL_P(txt)) {
-    VALUE txt2 = rb_str_new2("");
+    VALUE txt2 = STR_NEW2("");
     rb_str_cat_escaped_for_preformatted(self, txt2, RSTRING_PTR(txt), RSTRING_PTR(txt) + RSTRING_LEN(txt));
     rb_hash_aset(regs, ref, txt2);
   }
@@ -145,14 +145,14 @@ redcloth_inline(self, p, pe, refs)
   int cs, act;
   char *ts, *te, *reg, *eof;
   char *orig_p = p, *orig_pe = pe;
-  VALUE block = rb_str_new2("");
+  VALUE block = STR_NEW2("");
   VALUE regs = Qnil;
   unsigned int opts = 0;
   VALUE buf = Qnil;
   VALUE hash = Qnil;
   
-  VALUE html = rb_str_new2("");
-  VALUE failed_start = rb_str_new2("");
+  VALUE html = STR_NEW2("");
+  VALUE failed_start = STR_NEW2("");
   int stack[CALL_STACK_SIZE],top;
   
   %% write init;
@@ -172,7 +172,7 @@ rb_str_cat_escaped(self, str, ts, te)
   VALUE self, str;
   char *ts, *te;
 {
-  VALUE source_str = rb_str_new(ts, te-ts);
+  VALUE source_str = STR_NEW(ts, te-ts);
   VALUE escaped_str = rb_funcall(self, rb_intern("escape"), 1, source_str);
   rb_str_concat(str, escaped_str);
 }
@@ -182,7 +182,7 @@ rb_str_cat_escaped_for_preformatted(self, str, ts, te)
   VALUE self, str;
   char *ts, *te;
 {
-  VALUE source_str = rb_str_new(ts, te-ts);
+  VALUE source_str = STR_NEW(ts, te-ts);
   VALUE escaped_str = rb_funcall(self, rb_intern("escape_pre"), 1, source_str);
   rb_str_concat(str, escaped_str);
 }
@@ -192,7 +192,7 @@ rb_str_cat_escaped_test(self, str, ts, te)
   VALUE self, str;
   char *ts, *te;
 {
-  VALUE source_str = rb_str_new(ts, te-ts);
+  VALUE source_str = STR_NEW(ts, te-ts);
   rb_str_concat(str, source_str);
 }
 

@@ -45,14 +45,14 @@ redcloth_bbcode_inline(self, p, pe, refs)
   int cs, act, nest;
   char *ts = NULL, *te = NULL, *reg = NULL, *bck = NULL, *eof = NULL;
   char *orig_p = p, *orig_pe = pe;
-  VALUE block = rb_str_new2("");
+  VALUE block = STR_NEW2("");
   VALUE regs = Qnil; CLEAR_REGS()
   unsigned int opts = 0;
   VALUE buf = Qnil;
   VALUE hash = Qnil;
 
-  VALUE html = rb_str_new2("");
-  VALUE failed_start = rb_str_new2("");
+  VALUE html = STR_NEW2("");
+  VALUE failed_start = STR_NEW2("");
   char *failed_start_point_p = NULL, *failed_start_point_ts = NULL, *failed_start_point_te = NULL;
   int stack[CALL_STACK_SIZE],top,nested_quote = 0, nested_spoiler = 0, store_cite = 1, store_title = 1;
 
