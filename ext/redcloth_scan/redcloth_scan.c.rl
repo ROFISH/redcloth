@@ -99,7 +99,7 @@ redcloth_html_esc(int argc, VALUE* argv, VALUE self) //(self, str, level)
   
   char *ts = RSTRING_PTR(str), *te = RSTRING_PTR(str) + RSTRING_LEN(str);
   char *t = ts, *t2 = ts, *ch = NULL;
-  if (te <= ts) return;
+  if (te <= ts) return STR_NEW2("");
 
   while (t2 < te) {
     ch = NULL;
@@ -158,7 +158,7 @@ redcloth_latex_esc(VALUE self, VALUE str)
   
   char *ts = RSTRING_PTR(str), *te = RSTRING_PTR(str) + RSTRING_LEN(str);
   char *t = ts, *t2 = ts, *ch = NULL;
-  if (te <= ts) return;
+  if (te <= ts) return STR_NEW2("");
 
   while (t2 < te) {
     ch = NULL;

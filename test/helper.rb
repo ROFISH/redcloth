@@ -1,7 +1,11 @@
+require 'yaml'
+if RUBY_VERSION >= "1.9.3"
+  YAML::ENGINE.yamler = 'syck'
+end
+
 require 'test/unit'
 $:.unshift File.dirname(__FILE__) + "/../lib"
 require 'redcloth'
-require 'yaml'
 
 module Test
   module Unit

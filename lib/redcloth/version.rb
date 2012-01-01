@@ -2,7 +2,7 @@ module RedCloth
   module VERSION
     MAJOR = 0
     MINOR = 8
-    TINY  = 5
+    TINY  = 6
     RELEASE_CANDIDATE = nil
 
     STRING = [MAJOR, MINOR, TINY].join('.')
