@@ -814,6 +814,19 @@ html: |-
   A notextile block ends it.
 valid_html: false
 ---
+name: extended non-block doesn't cause issues
+in: |-
+  well.. this is awkward
+
+  Second div.
+
+  heyyyy
+html: |-
+  <p>well.. this is awkward</p>
+  <p>Second div.</p>
+  <p>heyyyy</p>
+valid_html: false
+---
 name: simple parentheses
 in: |-
   before (in parens) after

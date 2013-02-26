@@ -86,7 +86,7 @@ VALUE redcloth_bbcode_inline2(VALUE, VALUE, VALUE);
   extend = Qnil; \
   CLEAR(block); \
   CLEAR_REGS()
-#define ADD_EXTENDED_BLOCK()    rb_str_append(html, red_block(self, regs, block, refs)); CLEAR(block);
+#define ADD_EXTENDED_BLOCK()    rb_str_append(html, red_block(self, regs, block, refs)); CLEAR(block); rb_hash_aset(regs,ID2SYM(rb_intern("fallback")),Qnil); 
 #define END_EXTENDED()     extend = Qnil; CLEAR_REGS();
 #define IS_NOT_EXTENDED()     NIL_P(extend)
 #define ADD_BLOCKCODE()    rb_str_append(html, red_blockcode(self, regs, block)); CLEAR(block); CLEAR_REGS()
