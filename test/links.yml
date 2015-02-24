@@ -289,3 +289,12 @@ in: |-
   "<r:attachment:image name="checkmark.gif" alt="Apply online" />*apply online*":/admissions/apply/
 html: |-
   <p><a href="/admissions/apply/"><r:attachment:image name="checkmark.gif" alt="Apply online" /><strong>apply online</strong></a></p>
+---
+# putting this here as I didn't port rspec
+name: CVE-2012-6684
+in: |-
+  ["clickme":javascript:alert(%27XSS%27)]
+html: |- #unfiltered is still allowed
+  <p><a href="javascript:alert(%27XSS%27)">clickme</a></p>
+filtered_html: <p>clickme</p>
+sanitized_html: <p>clickme</p>

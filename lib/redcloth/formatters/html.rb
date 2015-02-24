@@ -146,7 +146,9 @@ module RedCloth::Formatters::HTML
   end
   
   def link(opts)
-    if opts[:name].nil? && !opts[:href].nil?
+    if (filter_html || sanitize_html) && opts[:href] =~ /^\s*javascript:/
+      return opts[:name]
+    elsif opts[:name].nil? && !opts[:href].nil?
       opts[:name] = opts[:href]
     end
     "<a href=\"#{escape_attribute opts[:href]}\"#{pba(opts)}>#{opts[:name]}</a>"
