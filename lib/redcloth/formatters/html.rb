@@ -146,7 +146,7 @@ module RedCloth::Formatters::HTML
   end
   
   def link(opts)
-    if (filter_html || sanitize_html) && opts[:href] =~ /^\s*javascript:/
+    if (filter_html || sanitize_html) && opts[:href] =~ /^\s*javascript:/i
       return opts[:name]
     elsif opts[:name].nil? && !opts[:href].nil?
       opts[:name] = opts[:href]
@@ -159,7 +159,7 @@ module RedCloth::Formatters::HTML
   end
   
   def image(opts)
-    if (filter_html || sanitize_html) && ( opts[:src] =~ /^\s*javascript:/ || opts[:href] =~ /^\s*javascript:/ )
+    if (filter_html || sanitize_html) && ( opts[:src] =~ /^\s*javascript:/i || opts[:href] =~ /^\s*javascript:/i )
       opts[:title]
     else
       opts.delete(:align)

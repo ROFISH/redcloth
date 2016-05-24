@@ -298,3 +298,12 @@ html: |- #unfiltered is still allowed
   <p><a href="javascript:alert(%27XSS%27)">clickme</a></p>
 filtered_html: <p>clickme</p>
 sanitized_html: <p>clickme</p>
+---
+# putting this here as I didn't port rspec
+name: CVE-2012-6684 2
+in: |-
+  ["clickme":jAvascript:alert(%27XSS%27)]
+html: |- #unfiltered is still allowed
+  <p><a href="jAvascript:alert(%27XSS%27)">clickme</a></p>
+filtered_html: <p>clickme</p>
+sanitized_html: <p>clickme</p>

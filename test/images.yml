@@ -295,3 +295,11 @@ html: |- #unfiltered is still allowed
   <p>&#8220;<a href="javascript:prompt(document.domain)"><img src="javascript:alert(1)" title="2" alt="2" /></a>&#8221;</p>
 filtered_html: <p>&#8220;2&#8221;</p>
 sanitized_html: <p>&#8220;2&#8221;</p>
+---
+name: CVE-2012-6684 2
+in: |-
+  "!<jAvascript:alert(1)(2)!:jAvascript:prompt(document.domain)"
+html: |- #unfiltered is still allowed
+  <p>&#8220;<a href="jAvascript:prompt(document.domain)"><img src="jAvascript:alert(1)" title="2" alt="2" /></a>&#8221;</p>
+filtered_html: <p>&#8220;2&#8221;</p>
+sanitized_html: <p>&#8220;2&#8221;</p>
