@@ -61,7 +61,7 @@ red_parse_attr(VALUE self, VALUE regs, VALUE ref)
 {
   VALUE txt = rb_hash_aref(regs, ref);
   VALUE new_regs = redcloth_attributes(self, txt);
-  return rb_funcall(regs, rb_intern("update"), 1, new_regs);
+  return rb_funcall(regs, rb_intern("merge!"), 1, new_regs);
 }
 
 VALUE
@@ -69,7 +69,7 @@ red_parse_link_attr(VALUE self, VALUE regs, VALUE ref)
 {
   VALUE txt = rb_hash_aref(regs, ref);
   VALUE new_regs = redcloth_link_attributes(self, txt);
-  return rb_funcall(regs, rb_intern("update"), 1, new_regs);
+  return rb_funcall(regs, rb_intern("merge!"), 1, new_regs);
 }
 
 VALUE
