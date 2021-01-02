@@ -9,9 +9,24 @@ License::   MIT
 
 (See http://redcloth.org/textile/ for a Textile reference.)
 
+h2. Latest Updates
+
+Holy crap, it's 2021?
+
+* Updated version to 0.9.0.alpha1. The minor version bump is due to minor breaking changes listed below.
+* Cherry-picked every major update from RedCloth until this post, which RedCloth has not been updated since 2018. (Nothing wrong with that. Don't fix what ain't broke.) I did not port the RSpec, gem-building, or other new meta elements. But the base engine is still the same so there's no need because the gem-building at least originally was for building on Windows and Java which BBRedCloth does not support.
+* Includes CVE-2012-6684. Although I highly, *highly* recommend using an html sanitizer on top of this because Textile lets you some EVIL things in CSS.
+* YouTube and Vimeo support was removed. It used the super old flash version anyway.
+* Removed the swear filter, it wasn't perfect.
+* All tests pass. NOTE: Malformed BBCode currently produces non-ideal but valid and secure HTML code. Don't mess up your BBCode and it's all fine.
+* Confirmed working on Ruby 3.0.0
+* If you are using BBRedCloth, simply including the pre-packaged gem file is fine. Due to the reliance on Ragel, you cannot just include a Github project.
+** Since I have not yet ported the build system, you need the last version of echoe gem and Ruby 1.9.3 to actually build the gem using @rake package@. Sorry, not sorry. You can still build Ruby 1.9.3 on macOS Big Sur if you remove or use the super insecure old OpenSSL 1.0.2t, so it's not like super-hard.
+** Once you have the .gem file, later version of Ruby such as 3.0.0 can then build the native extension normally like any gem.
+
 h2. BBRedCloth
 
-BBRedCloth is a Ruby library for converting Textile into HTML. While fundamentally based on RedCloth, it also contains the ability to convert 
+BBRedCloth is a Ruby library for converting Textile into HTML. While fundamentally based on RedCloth, it also contains the ability to convert standard "BBCode" also, which is useful for forums which use this style of markup since, well... forever. As a drop-in replacement for RedCloth, it plays well such that Textile and BBCode can work side-by-side without much effort for the implementer.
 
 h2. Installing
 
@@ -26,7 +41,7 @@ It will install the appropriate Ruby gem. JRuby is not supported, nor is the pur
 If you wish to use BBRedCloth in your Rails 3 project, just add the following to your Gemfile:
 
 <pre>
-gem 'BBRedCloth', :require=>"RedCloth"
+gem 'BBRedCloth', require:'redcloth'
 </pre>
 
 == Compiling

@@ -1,8 +1,8 @@
 module RedCloth
   module VERSION
     MAJOR = 0
-    MINOR = 8
-    TINY  = 9
+    MINOR = 9
+    TINY  = 0
     RELEASE_CANDIDATE = 'alpha1'
 
     STRING = [MAJOR, MINOR, TINY, RELEASE_CANDIDATE].join('.')
