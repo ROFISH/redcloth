@@ -519,19 +519,6 @@ bbcode_only: |-
   <blockquote><p>...and test...</p></blockquote>
   <p>...Huh... it&#8217;s even more evident here. No idea what&#8217;s causing it.</p>
 ---
-name: swear filter
-in: shit fuck piss
-filter_swears: <p>**** **** piss</p>
----
-name: no swear filter in links!
-in: |-
-  Check out "my site":http://mashitheinsane.deviantart.com/!
-  
-  Check out [url=http://mashitheinsane.deviantart.com/]my site[/url]!
-filter_swears: |-
-  <p>Check out <a href="http://mashitheinsane.deviantart.com/">my site</a>!</p>
-  <p>Check out <a href="http://mashitheinsane.deviantart.com/">my site</a>!</p>
----
 name: nested bbcode inside quote tags
 in: |-
   [quote]test [b]test[/b][/quote]

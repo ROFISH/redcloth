@@ -95,11 +95,6 @@ module RedCloth
     #
     attr_accessor :bbcode_only
     
-    # Accessor for enabling the swear filter.
-    #
-    # Uses the HTML swear filters. May add more to RedCloth::Formatters::HTML::SWEARWORDS
-    attr_accessor :filter_swears
-    
     def bbcode_only=(boolean)
       #span caps shouldn't apply since we're not parsing for Textile
       @no_span_caps = boolean
