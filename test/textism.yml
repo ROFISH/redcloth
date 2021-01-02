@@ -52,13 +52,6 @@ html: |-
   	<li>A third item</li>
   	<li>A fourth item</li>
   </ol>
-latex: |+
-  \begin{enumerate}
-  	\item A first item
-  	\item A second item
-  	\item A third item
-  	\item A fourth item
-  \end{enumerate}
   
 ---
 in: |-
@@ -74,13 +67,6 @@ html: |-
   	<li>A third item</li>
   	<li>A fourth item</li>
   </ul>
-latex: |+
-  \begin{itemize}
-  	\item A first item
-  	\item A second item
-  	\item A third item
-  	\item A fourth item
-  \end{itemize}
   
 ---
 in: _a phrase_
