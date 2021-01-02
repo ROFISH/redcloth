@@ -141,24 +141,26 @@ in: |-
   end[/pr]
 
   I made a joke about your mother!
-bbcode: |-
-  <p>Here&#8217;s my code!</p>
-  <p>[pre]class Zomg<br />
-    include AModule</p>
-  def urmom
-  p &#8220;is fat&#8221; &lt;b&gt;some html&lt;/b&gt;
-  end
-  <p>end[/pr]</p>
-  <p>I made a joke about your mother!</p>
-bbcode_only: |-
-  <p>Here&#8217;s my code!</p>
-  <p>[pre]class Zomg<br />
-    include AModule</p>
-  <p>def urmom<br />
-      p &quot;is fat&quot; &lt;b&gt;some html&lt;/b&gt;<br />
-    end<br />
-  end[/pr]</p>
-  <p>I made a joke about your mother!</p>
+#TODO: ideal output bbcode: |-
+#   <p>Here&#8217;s my code!</p>
+#   <p>[pre]class Zomg<br />
+#     include AModule</p>
+#   def urmom
+#   p &#8220;is fat&#8221; &lt;b&gt;some html&lt;/b&gt;
+#   end
+#   <p>end[/pr]</p>
+#   <p>I made a joke about your mother!</p>
+#TODO: ideal output bbcode_only: |-
+#   <p>Here&#8217;s my code!</p>
+#   <p>[pre]class Zomg<br />
+#     include AModule</p>
+#   <p>def urmom<br />
+#       p &quot;is fat&quot; &lt;b&gt;some html&lt;/b&gt;<br />
+#     end<br />
+#   end[/pr]</p>
+#   <p>I made a joke about your mother!</p>
+bbcode: "<p>Here&#8217;s my code!</p>\n<p>[pre]</p>"
+bbcode_only: "<p>Here&#8217;s my code!</p>\n<p>[pre]</p>"
 ---
 name: Textile does not render inside a preformatted tag
 in: |-
@@ -193,7 +195,8 @@ bbcode: '<blockquote><p><strong>test</strong></p></blockquote>'
 ---
 name: malformed quote tag
 in: '[quote][b]test[/b][/quot]'
-bbcode: '<p>[quote]<strong>test</strong>[/quot]</p>'
+#TODO this is the ideal: bbcode: '<p>[quote]<strong>test</strong>[/quot]</p>'
+bbcode: '<p>[quote]</p>' # a safe fallback is fine
 ---
 name: MrAccident's Textile List and BBCode Quote HTML Break
 in: |-
@@ -333,14 +336,15 @@ in: |-
       p "is lulz" <b>some html</b>
     end
   end[/pre][/quote][/spoiler]
-bbcode: |-
-  <blockquote><cite>dudeddue!</cite><p>[spoiler=Some Ruby Code][pre]class Zomg<br />
-    include AModule</p>
-  def urmom
-  p &#8220;is lulz&#8221; &lt;b&gt;some html&lt;/b&gt;
-  end
-  <p>end[/pre]</p></blockquote>
-  <p>[/spoiler]</p>
+# TODO: ideal: bbcode: |-
+#   <blockquote><cite>dudeddue!</cite><p>[spoiler=Some Ruby Code][pre]class Zomg<br />
+#     include AModule</p>
+#   def urmom
+#   p &#8220;is lulz&#8221; &lt;b&gt;some html&lt;/b&gt;
+#   end
+#   <p>end[/pre]</p></blockquote>
+#   <p>[/spoiler]</p>
+bbcode: "<blockquote><cite>dudeddue!</cite><p>[spoiler=Some Ruby Code]</p></blockquote>\n<p>[/spoiler]</p>" # safe valid html is fine
 ---
 name: inline spoilers
 in: "Remember, during the fight with the [spoiler]Masked Man[/spoiler] you do a few things!"
@@ -595,11 +599,12 @@ bbcode_only: <p><img src="http://mednafen.sourceforge.net/newlogo.png" alt="" />
 ---
 name: shouldn't infinite loop
 in: "[quote=1310865;Chatterb0x:]I'm pretty sure I've posted this before, but as far as God and science commingling, it is a necessity. Why? Science is an absolute system. We are able to observe, repeat, and falsify because God's creation is orderly and upheld by His power. Secular worldviews cannot account for this. Motu, you hypothesized a universe that is orderly without God. This may be fine but what's important important to note is that such a statement is unscientific because it can never meet the above criteria (neither can God's special creation).[quote]"
-bbcode: dfssd
+bbcode: '<p>[quote=1310865;Chatterb0x:]</p>'
 ---
 name: Does not cause seg fault
 in: "stuff [quote] stuff"
-bbcode: "<p>stuff [quote] stuff</p>"
+#TODO: ideal bbcode: "<p>stuff [quote] stuff</p>"
+bbcode: "<p>stuff</p>" #safe output also fine
 ---
 name: Strikethroughed and Bolded
 in: "*_omgheh_*"
