@@ -334,61 +334,6 @@ module RedCloth::Formatters::HTML
     "#{opts[:text]}\n"
   end
   
-  def youtube(opts)
-    #gdata.youtube.com/feeds/api/videos/Gkwhxh5txJ0
-    
-    begin
-      url = URI.parse("http://gdata.youtube.com/feeds/api/videos/#{opts[:youtubeid]}")
-      req = Net::HTTP::Get.new(url.path)
-      res = Net::HTTP.start(url.host, url.port) {|http|
-        http.request(req)
-      }
-      d = REXML::Document.new(res.body)
-      title = d.elements["entry/title"].text
-    rescue
-      title = "http://www.youtube.com/watch?v=#{opts[:youtubeid]}"
-    end
-    
-    case opts[:youtubefmt]
-      when "22"
-        width = 700
-        height = 395
-      when "18"
-        width = 480
-        height = 320
-      when "6"
-        width = 480
-        height = 320
-      else
-        width = 320
-        height = 240
-    end
-    
-    out = "<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://www.youtube.com/watch?v=#{opts[:youtubeid]}#{"&fmt=#{opts[:youtubefmt]}" if opts[:youtubefmt]}\">#{title}</a></div><div class=\"youtube_video\"><object width=\"#{width}\" height=\"#{height}\"><param name=\"movie\" value=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowscriptaccess\" value=\"always\"></param><embed src=\"http://www.youtube.com/v/#{opts[:youtubeid]}&hl=en&fs=1&\" type=\"application/x-shockwave-flash\" allowscriptaccess=\"always\" allowfullscreen=\"true\" width=\"#{width}\" height=\"#{height}\"></embed></object></div></div>\n"
-    out
-  end
-  
-  def vimeo(opts)
-    begin
-      #http://www.vimeo.com/api/v2/video/6583886.xml
-      
-      url = URI.parse("http://www.vimeo.com/api/v2/video/#{opts[:vimeoid]}.xml")
-      req = Net::HTTP::Get.new(url.path)
-      res = Net::HTTP.start(url.host, url.port) {|http|
-        http.request(req)
-      }
-      d = REXML::Document.new(res.body)
-      title = d.elements["videos/video/title"].text
-      out = "#{title}"
-      width = 480
-      height = 320
-      out = "<div class=\"youtube\"><div class=\"youtube_title\"><a href=\"http://vimeo.com/#{opts[:vimeoid]}\">#{title}</a></div><div class=\"youtube_video\"><object width=\"#{width}\" height=\"#{height}\"><param name=\"allowfullscreen\" value=\"true\" /><param name=\"allowscriptaccess\" value=\"always\" /><param name=\"movie\" value=\"http://vimeo.com/moogaloop.swf?clip_id=#{opts[:vimeoid]}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" /><embed src=\"http://vimeo.com/moogaloop.swf?clip_id=#{opts[:vimeoid]}&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowscriptaccess=\"always\" width=\"#{width}\" height=\"#{height}\"></embed></object></div></div>"
-    rescue
-      out = "ERROR WITH VIMEO API! VIDEO DOES NOT EXIST? VIDEO NOT ALLOWED TO EMBED?"
-    end
-    out
-  end
-  
   def html_block(opts)
     inline_html(:text => "#{opts[:indent_before_start]}#{opts[:start_tag]}#{opts[:indent_after_start]}") + 
     "#{opts[:text]}" +

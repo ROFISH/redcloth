@@ -2,10 +2,10 @@ module RedCloth
   module VERSION
     MAJOR = 0
     MINOR = 8
-    TINY  = 8
-    RELEASE_CANDIDATE = nil
+    TINY  = 9
+    RELEASE_CANDIDATE = 'alpha1'
 
-    STRING = [MAJOR, MINOR, TINY].join('.')
+    STRING = [MAJOR, MINOR, TINY, RELEASE_CANDIDATE].join('.')
     TAG = "REL_#{[MAJOR, MINOR, TINY, RELEASE_CANDIDATE].compact.join('_')}".upcase.gsub(/\.|-/, '_')
     FULL_VERSION = "#{[MAJOR, MINOR, TINY, RELEASE_CANDIDATE].compact.join('.')}"
     
